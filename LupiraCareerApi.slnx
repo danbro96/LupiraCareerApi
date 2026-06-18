@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LupiraCareerApi.Core/LupiraCareerApi.Core.csproj" />
+    <Project Path="src/LupiraCareerApi/LupiraCareerApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LupiraCareerApi.Core.Tests/LupiraCareerApi.Core.Tests.csproj" />
+    <Project Path="tests/LupiraCareerApi.Server.Tests/LupiraCareerApi.Server.Tests.csproj" />
+  </Folder>
+</Solution>
