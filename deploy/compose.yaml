@@ -1,0 +1,47 @@
+# lupira-career-api — TrueNAS Custom App `lupira-career-api`.
+# Single .NET 10 service: REST + MCP (/api) over one Marten event store in Postgres (lupira_career). No filesystem state.
+services:
+  lupira-career-api:
+    image: danbro96/lupira-career-api:${IMAGE_TAG:-latest}
+    container_name: lupira-career-api
+    environment:
+      # Postgres — Marten event store + documents (schema `career`). The store/schema are created by
+      # `--apply-schema` (a one-shot deploy step), not here.
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=lupira_career;Username=lupira_career_user;Password=${LUPIRA_CAREER_DB_PASSWORD:?required}"
+
+      # /api auth — Authentik OIDC (JWT); every endpoint requires an authenticated principal. The headless
+      # agent obtains a member-scoped token via token-exchange (RFC 8693) at Authentik — no agent secret here.
+      Auth__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
+      Auth__Audience: ${AUTH_AUDIENCE:-lupira-career}
+
+      # MCP surface (/api/mcp) is LAN/WireGuard-only — it is NOT added to the Cloudflare Tunnel.
+
+      # OTEL — same Basic Auth header convention as the other .NET apps (http/protobuf; 5-min metric cadence).
+      # Env-gated in Program.cs: without OTEL_EXPORTER_OTLP_ENDPOINT nothing is exported.
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL:-http/protobuf}
+      OTEL_EXPORTER_OTLP_HEADERS: ${OTEL_EXPORTER_OTLP_HEADERS:-}
+      OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL:-300000}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=prod,host.name=medelynas,service.name=lupira-career-api}
+    ports:
+      - "${HOST_PORT:-41080}:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/readyz || exit 1"]
+      interval: 60s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - default
+      - medelynas_data         # Postgres
+      - medelynas_telemetry    # OTel collector
+networks:
+  default:
+    driver: bridge
+  medelynas_data:
+    external: true
+    name: medelynas_data
+  medelynas_telemetry:
+    external: true
+    name: medelynas_telemetry
