@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 /// <summary>JSON options for the test client so it reads/writes enums as names, matching the API's wire contract.</summary>
 internal static class TestJson

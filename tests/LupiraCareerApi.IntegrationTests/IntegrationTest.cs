@@ -3,7 +3,7 @@ using LupiraCareerApi.Dtos;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 /// <summary>Base for integration tests: shares the container fixture, resets Marten data before each test, and
 /// provides REST fixture helpers. Lives in the "integration" collection so tests run serially against the shared DB.</summary>

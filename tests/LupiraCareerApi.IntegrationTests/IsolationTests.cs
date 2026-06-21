@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 /// <summary>Multi-principal isolation: one principal cannot see or write another's career graph. A non-owned id
 /// reads as 404 (its existence is not leaked) and never appears in the other principal's listings.</summary>

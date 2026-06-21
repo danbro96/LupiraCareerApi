@@ -2,7 +2,7 @@ using LupiraCareerApi.Dtos;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 public class ResumeTests(CareerApiTestFactory f) : IntegrationTest(f)
 {

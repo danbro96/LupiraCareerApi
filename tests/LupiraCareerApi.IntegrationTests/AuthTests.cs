@@ -1,7 +1,7 @@
 using System.Net;
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 public class AuthTests(CareerApiTestFactory f) : IntegrationTest(f)
 {

@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 /// <summary>One ephemeral Postgres container shared across the whole run; tests in this collection run serially
 /// (they share DB state and reset it per test), which avoids cross-test interference.</summary>

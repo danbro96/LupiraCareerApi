@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="LupiraCareerApi.Server.Tests" />
+    <InternalsVisibleTo Include="LupiraCareerApi.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>

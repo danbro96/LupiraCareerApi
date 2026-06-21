@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace LupiraCareerApi.Server.Tests;
+namespace LupiraCareerApi.IntegrationTests;
 
 public class ArtifactsTests(CareerApiTestFactory f) : IntegrationTest(f)
 {

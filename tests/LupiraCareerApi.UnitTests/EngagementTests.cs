@@ -1,7 +1,7 @@
 using LupiraCareerApi.Domain;
 using Xunit;
 
-namespace LupiraCareerApi.Core.Tests;
+namespace LupiraCareerApi.UnitTests;
 
 public class EngagementTests
 {
