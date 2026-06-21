@@ -1,5 +1,6 @@
-# lupira-career-api — TrueNAS Custom App `lupira-career-api`.
+# lupira-career-api — example Docker Compose definition.
 # Single .NET 10 service: REST + MCP (/api) over one Marten event store in Postgres (lupira_career). No filesystem state.
+# The ${VAR:-default} hostnames/ports below are sample values — override them for your own environment.
 services:
   lupira-career-api:
     image: danbro96/lupira-career-api:${IMAGE_TAG:-latest}
@@ -10,7 +11,7 @@ services:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=lupira_career;Username=lupira_career_user;Password=${LUPIRA_CAREER_DB_PASSWORD:?required}"
 
       # /api auth — Authentik OIDC (JWT); every endpoint requires an authenticated principal. The headless
-      # agent obtains a member-scoped token via token-exchange (RFC 8693) at Authentik — no agent secret here.
+      # agent obtains a member-scoped token via device-code + refresh at Authentik (no token-exchange grant) — no agent secret here.
       Auth__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
       Auth__Audience: ${AUTH_AUDIENCE:-lupira-career}
 
