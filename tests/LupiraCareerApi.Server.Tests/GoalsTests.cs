@@ -12,7 +12,7 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Create_with_blank_motivation_is_rejected()
     {
         var api = Factory.ApiClient("anna@strivo.se");
-        var resp = await api.PostAsJsonAsync("/api/goals", new SetGoalRequest(null, Maturity.Fluent, null, "  "));
+        var resp = await api.PostAsJsonAsync("/api/goals", new SetGoalRequest { SkillId = null, TargetMaturity = Maturity.Fluent, Deadline = null, Motivation = "  " }, TestJson.Options);
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
 
@@ -23,11 +23,11 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
         var skill = await RegisterSkillAsync(api);
         var goal = await CreateGoalAsync(api, skill.Id, "Reach fluency");
 
-        var got = await api.GetFromJsonAsync<GoalDto>($"/api/goals/{goal.Id}");
+        var got = await api.GetFromJsonAsync<GoalDto>($"/api/goals/{goal.Id}", TestJson.Options);
         Assert.Equal("Reach fluency", got!.Motivation);
         Assert.Equal(GoalStatus.Active, got.Status);
 
-        var list = await api.GetFromJsonAsync<List<GoalDto>>("/api/goals");
+        var list = await api.GetFromJsonAsync<List<GoalDto>>("/api/goals", TestJson.Options);
         Assert.Contains(list!, g => g.Id == goal.Id);
     }
 
@@ -36,9 +36,9 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var goal = await CreateGoalAsync(api);
-        var resp = await api.PatchAsJsonAsync($"/api/goals/{goal.Id}", new RescopeGoalRequest(Maturity.Expert, new DateOnly(2027, 1, 1)));
+        var resp = await api.PatchAsJsonAsync($"/api/goals/{goal.Id}", new RescopeGoalRequest { TargetMaturity = Maturity.Expert, Deadline = new DateOnly(2027, 1, 1) }, TestJson.Options);
         resp.EnsureSuccessStatusCode();
-        var updated = await resp.Content.ReadFromJsonAsync<GoalDto>();
+        var updated = await resp.Content.ReadFromJsonAsync<GoalDto>(TestJson.Options);
         Assert.Equal(Maturity.Expert, updated!.TargetMaturity);
         Assert.Equal(new DateOnly(2027, 1, 1), updated.Deadline);
     }
@@ -48,9 +48,9 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var goal = await CreateGoalAsync(api);
-        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/progress", new RecordProgressRequest("Did a course", null));
+        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/progress", new RecordProgressRequest { Note = "Did a course", LinkedEventId = null }, TestJson.Options);
         resp.EnsureSuccessStatusCode();
-        var updated = await resp.Content.ReadFromJsonAsync<GoalDto>();
+        var updated = await resp.Content.ReadFromJsonAsync<GoalDto>(TestJson.Options);
         Assert.Single(updated!.Progress);
         Assert.Equal("Did a course", updated.Progress[0].Note);
     }
@@ -62,9 +62,9 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
         var goal = await CreateGoalAsync(api);
         var artifact = await RegisterArtifactAsync(api);
 
-        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/achieve", new AchieveGoalRequest(new DateOnly(2026, 6, 1), artifact.Id));
+        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/achieve", new AchieveGoalRequest { AchievedOn = new DateOnly(2026, 6, 1), EvidenceArtifactId = artifact.Id }, TestJson.Options);
         resp.EnsureSuccessStatusCode();
-        var achieved = await resp.Content.ReadFromJsonAsync<GoalDto>();
+        var achieved = await resp.Content.ReadFromJsonAsync<GoalDto>(TestJson.Options);
         Assert.Equal(GoalStatus.Achieved, achieved!.Status);
         Assert.NotNull(achieved.ResolvedAt);
         Assert.Equal(artifact.Id, achieved.EvidenceArtifactId);
@@ -75,9 +75,9 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var goal = await CreateGoalAsync(api);
-        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/abandon", new AbandonGoalRequest("priorities changed"));
+        var resp = await api.PostAsJsonAsync($"/api/goals/{goal.Id}/abandon", new AbandonGoalRequest { Reason = "priorities changed" }, TestJson.Options);
         resp.EnsureSuccessStatusCode();
-        var abandoned = await resp.Content.ReadFromJsonAsync<GoalDto>();
+        var abandoned = await resp.Content.ReadFromJsonAsync<GoalDto>(TestJson.Options);
         Assert.Equal(GoalStatus.Abandoned, abandoned!.Status);
         Assert.Equal("priorities changed", abandoned.ResolutionReason);
     }
@@ -88,6 +88,6 @@ public class GoalsTests(CareerApiTestFactory f) : IntegrationTest(f)
         var api = Factory.ApiClient("anna@strivo.se");
         var missing = Guid.NewGuid();
         Assert.Equal(HttpStatusCode.NotFound, (await api.GetAsync($"/api/goals/{missing}")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await api.PostAsJsonAsync($"/api/goals/{missing}/progress", new RecordProgressRequest("x", null))).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await api.PostAsJsonAsync($"/api/goals/{missing}/progress", new RecordProgressRequest { Note = "x", LinkedEventId = null }, TestJson.Options)).StatusCode);
     }
 }

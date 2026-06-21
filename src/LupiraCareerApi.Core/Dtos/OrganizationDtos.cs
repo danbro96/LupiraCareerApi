@@ -2,8 +2,27 @@ using LupiraCareerApi.Domain;
 
 namespace LupiraCareerApi.Dtos;
 
-public record OrganizationDto(Guid Id, string Name, OrganizationKind Kind, string? Url, Guid? CalContactGroupRef);
+public sealed class OrganizationDto
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required OrganizationKind Kind { get; set; }
+    public string? Url { get; set; }
+    public Guid? CalContactGroupRef { get; set; }
+}
 
-public record CreateOrganizationRequest(string Name, OrganizationKind Kind, string? Url, Guid? CalContactGroupRef);
+public sealed class CreateOrganizationRequest
+{
+    public required string Name { get; set; }
+    public required OrganizationKind Kind { get; set; }
+    public string? Url { get; set; }
+    public Guid? CalContactGroupRef { get; set; }
+}
 
-public record UpdateOrganizationRequest(string? Name, OrganizationKind? Kind, string? Url, Guid? CalContactGroupRef);
+public sealed class UpdateOrganizationRequest
+{
+    public string? Name { get; set; }
+    public OrganizationKind? Kind { get; set; }
+    public string? Url { get; set; }
+    public Guid? CalContactGroupRef { get; set; }
+}

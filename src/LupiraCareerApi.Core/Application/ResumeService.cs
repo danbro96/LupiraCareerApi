@@ -16,16 +16,18 @@ public sealed class ResumeService(IDocumentSession session)
 
         var items = rows
             .OrderByDescending(r => r.OccurredOn)
-            .Select(r => new ExperienceItemDto(
-                r.Kind,
-                r.Id,
-                r.Kind == ExperienceKind.Engagement ? names.GetValueOrDefault(r.OrganizationId ?? Guid.Empty, "") : r.Title,
-                r.OccurredOn,
-                r.EndDate,
-                r.OrganizationId,
-                r.OrganizationId is Guid oid ? names.GetValueOrDefault(oid) : null,
-                r.Location,
-                r.SkillIds))
+            .Select(r => new ExperienceItemDto
+            {
+                Kind = r.Kind,
+                Id = r.Id,
+                Title = r.Kind == ExperienceKind.Engagement ? names.GetValueOrDefault(r.OrganizationId ?? Guid.Empty, "") : r.Title,
+                OccurredOn = r.OccurredOn,
+                EndDate = r.EndDate,
+                OrganizationId = r.OrganizationId,
+                OrganizationName = r.OrganizationId is Guid oid ? names.GetValueOrDefault(oid) : null,
+                Location = r.Location,
+                SkillIds = r.SkillIds,
+            })
             .ToList();
         return OpResult<List<ExperienceItemDto>>.Ok(items);
     }
@@ -38,13 +40,15 @@ public sealed class ResumeService(IDocumentSession session)
         var skills = await session.Query<Skill>().Where(s => s.OwnerPrincipalId == ownerId).ToListAsync(ct);
 
         var names = await OrgNamesAsync(engagements.Select(e => e.OrganizationId), ct);
-        var profileDto = profile?.ToDto() ?? new ProfileDto(ownerId, "", null, null, null, null, null, null);
+        var profileDto = profile?.ToDto() ?? new ProfileDto { OwnerPrincipalId = ownerId, FullName = "" };
 
-        var dto = new ResumeDto(
-            profileDto,
-            [.. engagements.OrderByDescending(e => e.Start).Select(e => e.ToDto(names.GetValueOrDefault(e.OrganizationId)))],
-            [.. projects.OrderByDescending(p => p.Start ?? DateOnly.MinValue).Select(p => p.ToDto())],
-            [.. skills.OrderBy(s => s.Name).Select(s => s.ToDto())]);
+        var dto = new ResumeDto
+        {
+            Profile = profileDto,
+            Engagements = [.. engagements.OrderByDescending(e => e.Start).Select(e => e.ToDto(names.GetValueOrDefault(e.OrganizationId)))],
+            Projects = [.. projects.OrderByDescending(p => p.Start ?? DateOnly.MinValue).Select(p => p.ToDto())],
+            Skills = [.. skills.OrderBy(s => s.Name).Select(s => s.ToDto())],
+        };
         return OpResult<ResumeDto>.Ok(dto);
     }
 

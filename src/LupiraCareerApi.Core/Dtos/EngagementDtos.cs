@@ -2,37 +2,57 @@ using LupiraCareerApi.Domain;
 
 namespace LupiraCareerApi.Dtos;
 
-public record TitleEpochDto(Guid TitleId, string Text, DateOnly From, DateOnly? To);
+public sealed class TitleEpochDto
+{
+    public required Guid TitleId { get; set; }
+    public required string Text { get; set; }
+    public required DateOnly From { get; set; }
+    public DateOnly? To { get; set; }
+}
 
-public record EngagementDto(
-    Guid Id,
-    EngagementKind Kind,
-    Guid OrganizationId,
-    string? OrganizationName,
-    DateOnly Start,
-    DateOnly? End,
-    Location? Location,
-    string? Summary,
-    string? CurrentTitle,
-    IReadOnlyList<TitleEpochDto> Titles,
-    IReadOnlyList<Guid> SkillIds);
+public sealed class EngagementDto
+{
+    public required Guid Id { get; set; }
+    public required EngagementKind Kind { get; set; }
+    public required Guid OrganizationId { get; set; }
+    public string? OrganizationName { get; set; }
+    public required DateOnly Start { get; set; }
+    public DateOnly? End { get; set; }
+    public Location? Location { get; set; }
+    public string? Summary { get; set; }
+    public string? CurrentTitle { get; set; }
+    public required IReadOnlyList<TitleEpochDto> Titles { get; set; }
+    public required IReadOnlyList<Guid> SkillIds { get; set; }
+}
 
-public record CreateEngagementRequest(
-    EngagementKind Kind,
-    Guid OrganizationId,
-    DateOnly Start,
-    Location? Location,
-    string? Summary);
+public sealed class CreateEngagementRequest
+{
+    public required EngagementKind Kind { get; set; }
+    public required Guid OrganizationId { get; set; }
+    public required DateOnly Start { get; set; }
+    public Location? Location { get; set; }
+    public string? Summary { get; set; }
+}
 
 /// <summary>Partial update (PATCH): only non-null fields are applied, each emitting its own domain event.
 /// Supplying <see cref="End"/> ends the engagement.</summary>
-public record UpdateEngagementRequest(
-    string? Summary,
-    EngagementKind? Kind,
-    Location? Location,
-    DateOnly? End,
-    string? EndReason);
+public sealed class UpdateEngagementRequest
+{
+    public string? Summary { get; set; }
+    public EngagementKind? Kind { get; set; }
+    public Location? Location { get; set; }
+    public DateOnly? End { get; set; }
+    public string? EndReason { get; set; }
+}
 
-public record AssumeTitleRequest(string Text, DateOnly EffectiveFrom);
+public sealed class AssumeTitleRequest
+{
+    public required string Text { get; set; }
+    public required DateOnly EffectiveFrom { get; set; }
+}
 
-public record UpdateTitleRequest(string? Text, DateOnly? RetiredOn);
+public sealed class UpdateTitleRequest
+{
+    public string? Text { get; set; }
+    public DateOnly? RetiredOn { get; set; }
+}

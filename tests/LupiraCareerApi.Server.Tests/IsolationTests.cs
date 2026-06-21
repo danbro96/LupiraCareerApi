@@ -18,7 +18,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var org = await CreateOrganizationAsync(Anna, "Strivo AB");
 
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<OrganizationDto>>("/api/organizations"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<OrganizationDto>>("/api/organizations", TestJson.Options))!);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/organizations/{org.Id}")).StatusCode);
     }
 
@@ -27,7 +27,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var org = await CreateOrganizationAsync(Anna, "Strivo AB");
         var resp = await Bjorn.PostAsJsonAsync("/api/engagements",
-            new CreateEngagementRequest(EngagementKind.Employment, org.Id, new DateOnly(2020, 1, 1), null, null));
+            new CreateEngagementRequest { Kind = EngagementKind.Employment, OrganizationId = org.Id, Start = new DateOnly(2020, 1, 1), Location = null, Summary = null }, TestJson.Options);
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
 
@@ -37,7 +37,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
         var org = await CreateOrganizationAsync(Anna);
         var eng = await CreateEngagementAsync(Anna, org.Id);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/engagements/{eng.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<EngagementDto>>("/api/engagements"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<EngagementDto>>("/api/engagements", TestJson.Options))!);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
         var project = await CreateProjectAsync(Anna);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/projects/{project.Id}")).StatusCode);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.PostAsync($"/api/projects/{project.Id}/archive", null)).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ProjectDto>>("/api/projects"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ProjectDto>>("/api/projects", TestJson.Options))!);
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var skill = await RegisterSkillAsync(Anna);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/skills/{skill.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<SkillDto>>("/api/skills"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<SkillDto>>("/api/skills", TestJson.Options))!);
     }
 
     [Fact]
@@ -62,7 +62,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var goal = await CreateGoalAsync(Anna);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/goals/{goal.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<GoalDto>>("/api/goals"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<GoalDto>>("/api/goals", TestJson.Options))!);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var artifact = await RegisterArtifactAsync(Anna);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/artifacts/{artifact.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ArtifactDto>>("/api/artifacts"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ArtifactDto>>("/api/artifacts", TestJson.Options))!);
     }
 
     [Fact]
@@ -78,6 +78,6 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var media = await RegisterMediaAsync(Anna);
         Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/media/{media.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<MediaDto>>("/api/media"))!);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<MediaDto>>("/api/media", TestJson.Options))!);
     }
 }

@@ -2,29 +2,45 @@ using LupiraCareerApi.Domain;
 
 namespace LupiraCareerApi.Dtos;
 
-public record ProjectDto(
-    Guid Id,
-    ProjectKind Kind,
-    string Title,
-    string? Description,
-    string? Url,
-    Guid? EngagementId,
-    DateOnly? Start,
-    DateOnly? End,
-    string? Outcome,
-    ProjectStatus Status,
-    IReadOnlyList<Guid> SkillIds);
+public sealed class ProjectDto
+{
+    public required Guid Id { get; set; }
+    public required ProjectKind Kind { get; set; }
+    public required string Title { get; set; }
+    public string? Description { get; set; }
+    public string? Url { get; set; }
+    public Guid? EngagementId { get; set; }
+    public DateOnly? Start { get; set; }
+    public DateOnly? End { get; set; }
+    public string? Outcome { get; set; }
+    public required ProjectStatus Status { get; set; }
+    public required IReadOnlyList<Guid> SkillIds { get; set; }
+}
 
-public record CreateProjectRequest(
-    ProjectKind Kind,
-    string Title,
-    string? Description,
-    Guid? EngagementId,
-    string? Url,
-    DateOnly? Start);
+public sealed class CreateProjectRequest
+{
+    public required ProjectKind Kind { get; set; }
+    public required string Title { get; set; }
+    public string? Description { get; set; }
+    public Guid? EngagementId { get; set; }
+    public string? Url { get; set; }
+    public DateOnly? Start { get; set; }
+}
 
-public record UpdateProjectRequest(string? Title, string? Description, string? Url);
+public sealed class UpdateProjectRequest
+{
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+    public string? Url { get; set; }
+}
 
-public record ShipProjectRequest(DateOnly ShippedOn, string? Outcome);
+public sealed class ShipProjectRequest
+{
+    public required DateOnly ShippedOn { get; set; }
+    public string? Outcome { get; set; }
+}
 
-public record AttachEngagementRequest(Guid EngagementId);
+public sealed class AttachEngagementRequest
+{
+    public required Guid EngagementId { get; set; }
+}

@@ -12,8 +12,8 @@ public class MediaTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Register_with_blank_blobref_or_mimetype_is_rejected()
     {
         var api = Factory.ApiClient("anna@strivo.se");
-        Assert.Equal(HttpStatusCode.BadRequest, (await api.PostAsJsonAsync("/api/media", new RegisterMediaRequest("  ", "image/png", null, null, "alt", null))).StatusCode);
-        Assert.Equal(HttpStatusCode.BadRequest, (await api.PostAsJsonAsync("/api/media", new RegisterMediaRequest("career/x.png", "  ", null, null, "alt", null))).StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, (await api.PostAsJsonAsync("/api/media", new RegisterMediaRequest { BlobRef = "  ", MimeType = "image/png", Width = null, Height = null, AltText = "alt", Caption = null }, TestJson.Options)).StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, (await api.PostAsJsonAsync("/api/media", new RegisterMediaRequest { BlobRef = "career/x.png", MimeType = "  ", Width = null, Height = null, AltText = "alt", Caption = null }, TestJson.Options)).StatusCode);
     }
 
     [Fact]
@@ -22,10 +22,10 @@ public class MediaTests(CareerApiTestFactory f) : IntegrationTest(f)
         var api = Factory.ApiClient("anna@strivo.se");
         var media = await RegisterMediaAsync(api, "career/hero.png", "image/png");
 
-        var got = await api.GetFromJsonAsync<MediaDto>($"/api/media/{media.Id}");
+        var got = await api.GetFromJsonAsync<MediaDto>($"/api/media/{media.Id}", TestJson.Options);
         Assert.Equal("career/hero.png", got!.BlobRef);
 
-        var list = await api.GetFromJsonAsync<List<MediaDto>>("/api/media");
+        var list = await api.GetFromJsonAsync<List<MediaDto>>("/api/media", TestJson.Options);
         Assert.Contains(list!, m => m.Id == media.Id);
     }
 
@@ -36,10 +36,10 @@ public class MediaTests(CareerApiTestFactory f) : IntegrationTest(f)
         var project = await CreateProjectAsync(api);
         var media = await RegisterMediaAsync(api);
 
-        var linked = await (await api.PutAsJsonAsync($"/api/media/{media.Id}/projects/{project.Id}", new MediaProjectRoleRequest(MediaRole.Hero))).Content.ReadFromJsonAsync<MediaDto>();
+        var linked = await (await api.PutAsJsonAsync($"/api/media/{media.Id}/projects/{project.Id}", new MediaProjectRoleRequest { Role = MediaRole.Hero }, TestJson.Options)).Content.ReadFromJsonAsync<MediaDto>(TestJson.Options);
         Assert.Contains(linked!.LinkedProjects, p => p.ProjectId == project.Id && p.Role == MediaRole.Hero);
 
-        var unlinked = await (await api.DeleteAsync($"/api/media/{media.Id}/projects/{project.Id}")).Content.ReadFromJsonAsync<MediaDto>();
+        var unlinked = await (await api.DeleteAsync($"/api/media/{media.Id}/projects/{project.Id}")).Content.ReadFromJsonAsync<MediaDto>(TestJson.Options);
         Assert.DoesNotContain(unlinked!.LinkedProjects, p => p.ProjectId == project.Id);
     }
 
@@ -50,10 +50,10 @@ public class MediaTests(CareerApiTestFactory f) : IntegrationTest(f)
         var skill = await RegisterSkillAsync(api);
         var media = await RegisterMediaAsync(api);
 
-        var linked = await (await api.PutAsync($"/api/media/{media.Id}/skills/{skill.Id}", null)).Content.ReadFromJsonAsync<MediaDto>();
+        var linked = await (await api.PutAsync($"/api/media/{media.Id}/skills/{skill.Id}", null)).Content.ReadFromJsonAsync<MediaDto>(TestJson.Options);
         Assert.Contains(skill.Id, linked!.LinkedSkillIds);
 
-        var unlinked = await (await api.DeleteAsync($"/api/media/{media.Id}/skills/{skill.Id}")).Content.ReadFromJsonAsync<MediaDto>();
+        var unlinked = await (await api.DeleteAsync($"/api/media/{media.Id}/skills/{skill.Id}")).Content.ReadFromJsonAsync<MediaDto>(TestJson.Options);
         Assert.DoesNotContain(skill.Id, unlinked!.LinkedSkillIds);
     }
 
@@ -62,7 +62,7 @@ public class MediaTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var media = await RegisterMediaAsync(api);
-        var archived = await (await api.DeleteAsync($"/api/media/{media.Id}")).Content.ReadFromJsonAsync<MediaDto>();
+        var archived = await (await api.DeleteAsync($"/api/media/{media.Id}")).Content.ReadFromJsonAsync<MediaDto>(TestJson.Options);
         Assert.True(archived!.Archived);
     }
 

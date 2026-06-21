@@ -10,13 +10,13 @@ public class ResumeTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Resume_composes_profile_engagements_projects_and_skills()
     {
         var api = Factory.ApiClient("anna@strivo.se");
-        await api.PutAsJsonAsync("/api/profile", new UpdateProfileRequest("Anna Dev", "Builder", null, null, null, null, null));
+        await api.PutAsJsonAsync("/api/profile", new UpdateProfileRequest { FullName = "Anna Dev", Tagline = "Builder", Bio = null, Location = null, GithubUrl = null, LinkedInUrl = null, WebsiteUrl = null }, TestJson.Options);
         var org = await CreateOrganizationAsync(api, "Strivo AB");
         await CreateEngagementAsync(api, org.Id);
         await CreateProjectAsync(api);
         await RegisterSkillAsync(api, "C#");
 
-        var resume = await api.GetFromJsonAsync<ResumeDto>("/api/resume");
+        var resume = await api.GetFromJsonAsync<ResumeDto>("/api/resume", TestJson.Options);
         Assert.Equal("Anna Dev", resume!.Profile.FullName);
         Assert.Single(resume.Engagements);
         Assert.Equal("Strivo AB", resume.Engagements[0].OrganizationName);
@@ -32,7 +32,7 @@ public class ResumeTests(CareerApiTestFactory f) : IntegrationTest(f)
         await CreateEngagementAsync(api, org.Id);
         await CreateProjectAsync(api, "Rebuild");
 
-        var experience = await api.GetFromJsonAsync<List<ExperienceItemDto>>("/api/experience");
+        var experience = await api.GetFromJsonAsync<List<ExperienceItemDto>>("/api/experience", TestJson.Options);
         Assert.Equal(2, experience!.Count);
         Assert.Contains(experience, x => x.OrganizationName == "Strivo AB");
         Assert.Contains(experience, x => x.Title == "Rebuild");
@@ -45,9 +45,9 @@ public class ResumeTests(CareerApiTestFactory f) : IntegrationTest(f)
         var project = await CreateProjectAsync(api, "Rebuild");
         var skill = await RegisterSkillAsync(api);
         (await api.PutAsync($"/api/projects/{project.Id}/skills/{skill.Id}", null)).EnsureSuccessStatusCode();
-        (await api.PostAsJsonAsync($"/api/projects/{project.Id}/ship", new ShipProjectRequest(new DateOnly(2021, 9, 1), "launched"))).EnsureSuccessStatusCode();
+        (await api.PostAsJsonAsync($"/api/projects/{project.Id}/ship", new ShipProjectRequest { ShippedOn = new DateOnly(2021, 9, 1), Outcome = "launched" }, TestJson.Options)).EnsureSuccessStatusCode();
 
-        var experience = await api.GetFromJsonAsync<List<ExperienceItemDto>>("/api/experience");
+        var experience = await api.GetFromJsonAsync<List<ExperienceItemDto>>("/api/experience", TestJson.Options);
         var item = experience!.Single(x => x.Id == project.Id);
         Assert.Equal(new DateOnly(2021, 9, 1), item.EndDate);
         Assert.Contains(skill.Id, item.SkillIds);

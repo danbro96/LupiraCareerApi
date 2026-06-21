@@ -2,25 +2,48 @@ using LupiraCareerApi.Domain;
 
 namespace LupiraCareerApi.Dtos;
 
-public record GoalDto(
-    Guid Id,
-    Guid? SkillId,
-    Maturity TargetMaturity,
-    DateOnly? Deadline,
-    string Motivation,
-    GoalStatus Status,
-    DateTimeOffset? ResolvedAt,
-    string? ResolutionReason,
-    Guid? EvidenceArtifactId,
-    IReadOnlyList<GoalProgressEntry> Progress);
+public sealed class GoalDto
+{
+    public required Guid Id { get; set; }
+    public Guid? SkillId { get; set; }
+    public required Maturity TargetMaturity { get; set; }
+    public DateOnly? Deadline { get; set; }
+    public required string Motivation { get; set; }
+    public required GoalStatus Status { get; set; }
+    public DateTimeOffset? ResolvedAt { get; set; }
+    public string? ResolutionReason { get; set; }
+    public Guid? EvidenceArtifactId { get; set; }
+    public required IReadOnlyList<GoalProgressEntry> Progress { get; set; }
+}
 
-public record SetGoalRequest(Guid? SkillId, Maturity TargetMaturity, DateOnly? Deadline, string Motivation);
+public sealed class SetGoalRequest
+{
+    public Guid? SkillId { get; set; }
+    public required Maturity TargetMaturity { get; set; }
+    public DateOnly? Deadline { get; set; }
+    public required string Motivation { get; set; }
+}
 
 /// <summary>Partial update (PATCH): only non-null fields are applied, each emitting its own domain event.</summary>
-public record RescopeGoalRequest(Maturity? TargetMaturity, DateOnly? Deadline);
+public sealed class RescopeGoalRequest
+{
+    public Maturity? TargetMaturity { get; set; }
+    public DateOnly? Deadline { get; set; }
+}
 
-public record RecordProgressRequest(string Note, Guid? LinkedEventId);
+public sealed class RecordProgressRequest
+{
+    public required string Note { get; set; }
+    public Guid? LinkedEventId { get; set; }
+}
 
-public record AchieveGoalRequest(DateOnly AchievedOn, Guid? EvidenceArtifactId);
+public sealed class AchieveGoalRequest
+{
+    public required DateOnly AchievedOn { get; set; }
+    public Guid? EvidenceArtifactId { get; set; }
+}
 
-public record AbandonGoalRequest(string Reason);
+public sealed class AbandonGoalRequest
+{
+    public required string Reason { get; set; }
+}
