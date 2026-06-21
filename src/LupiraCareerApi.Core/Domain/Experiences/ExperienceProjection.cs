@@ -9,8 +9,8 @@ public enum ExperienceKind
 }
 
 /// <summary>Inline read model: a unified, owner-scoped timeline of engagements and projects with their applied
-/// skills. <see cref="OwnerPrincipalId"/> is stamped from the creation events; for engagements the title is the
-/// <see cref="OrganizationId"/> (the read service resolves the organization name).</summary>
+/// skills. <see cref="OwnerPrincipalId"/> is stamped from the creation events. Engagements carry no <see cref="Title"/>;
+/// <see cref="OrganizationId"/> stands in and the read service resolves the organization name.</summary>
 public sealed class ExperienceRow
 {
     public Guid Id { get; set; }

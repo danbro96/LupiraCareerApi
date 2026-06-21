@@ -18,7 +18,7 @@ public record RegisterSkillRequest(
     IReadOnlyList<string>? Aliases,
     Guid? ParentSkillId);
 
-/// <summary>Partial update (PATCH): rename and/or recategorize and/or reparent.</summary>
+/// <summary>Partial update (PATCH): only non-null fields are applied, each emitting its own domain event.</summary>
 public record UpdateSkillRequest(string? Name, SkillCategory? Category, Guid? ParentSkillId);
 
 public record AddAliasRequest(string Alias);

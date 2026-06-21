@@ -7,7 +7,7 @@ namespace LupiraCareerApi.Auth;
 
 /// <summary>
 /// DEVELOPMENT-ONLY auth: authenticates as the principal named in the <c>X-Dev-User</c> header (an email), so the
-/// API can be exercised locally without Authentik. Registered only when the environment is Development.
+/// API can be exercised locally without Authentik.
 /// </summary>
 public sealed class DevAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {

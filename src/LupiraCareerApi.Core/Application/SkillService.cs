@@ -30,7 +30,7 @@ public sealed class SkillService(IDocumentSession session)
         return await GetAsync(ownerId, id, ct);
     }
 
-    /// <summary>PATCH: rename and/or recategorize and/or reparent.</summary>
+    /// <summary>PATCH: applies only the provided fields, each as its own event.</summary>
     public async Task<OpResult<SkillDto>> UpdateAsync(Guid ownerId, Guid id, UpdateSkillRequest r, CancellationToken ct = default)
     {
         var s = await LoadOwnedAsync(ownerId, id, ct);

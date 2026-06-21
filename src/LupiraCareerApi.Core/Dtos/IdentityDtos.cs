@@ -1,6 +1,5 @@
 namespace LupiraCareerApi.Dtos;
 
-/// <summary>The caller's resolved local identity.</summary>
 public record MeDto(Guid Id, string Email, string? DisplayName);
 
 public record ProfileDto(

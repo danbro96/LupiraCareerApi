@@ -35,5 +35,4 @@ public record UpdateEngagementRequest(
 
 public record AssumeTitleRequest(string Text, DateOnly EffectiveFrom);
 
-/// <summary>Revise the title's text and/or set the date it was retired.</summary>
 public record UpdateTitleRequest(string? Text, DateOnly? RetiredOn);

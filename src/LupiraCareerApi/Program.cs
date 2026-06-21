@@ -16,11 +16,11 @@ using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Bounded context (data + transport-neutral services), registered from the Core class library.
-// The connection string is read lazily from configuration (ConnectionStrings:Postgres) inside AddCareerCore. ---
+// Bounded context (data + transport-neutral services). Connection string is resolved lazily from
+// configuration (ConnectionStrings:Postgres) inside AddCareerCore.
 builder.Services.AddCareerCore();
 
-// --- Host-only services: identity (claims -> Core PrincipalDirectory) + the thin REST handlers. ---
+// Host-only services: identity (claims -> Core PrincipalDirectory) + the thin REST handlers.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<CurrentUser>();
 builder.Services.AddScoped<MeHandler>();
@@ -34,7 +34,7 @@ builder.Services.AddScoped<ArtifactsHandler>();
 builder.Services.AddScoped<MediaHandler>();
 builder.Services.AddScoped<ResumeHandler>();
 
-// --- Auth: OIDC JWT for the owner write surface (/api). The public portfolio (/pub) is anonymous. ---
+// Auth: OIDC JWT for the owner surface (/api). Every endpoint requires an authenticated principal.
 var authBuilder = builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -54,8 +54,8 @@ string[] apiSchemes = builder.Environment.IsDevelopment()
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("ApiPolicy", p => p.AddAuthenticationSchemes(apiSchemes).RequireAuthenticatedUser());
 
-// --- Observability: OpenTelemetry -> OpenObserve. Env-gated; the OTLP exporter reads OTEL_EXPORTER_OTLP_*
-//     automatically (http/protobuf + Basic auth header set in compose). ---
+// Observability: OpenTelemetry -> OpenObserve, env-gated. The OTLP exporter reads OTEL_EXPORTER_OTLP_*
+// automatically (protocol + Basic auth header set in compose).
 var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(r => r.AddService("lupira-career-api"))

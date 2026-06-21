@@ -7,7 +7,7 @@ namespace LupiraCareerApi;
 
 /// <summary>Configures the single Marten store for the Career API: event-sourced aggregates (inline snapshots),
 /// derived read models, and plain documents (identity, profile, organizations), all in the <c>career</c> schema.
-/// Enums serialize as strings. Mirrors the LupiraCalApi pattern.</summary>
+/// Enums serialize as strings.</summary>
 public static class MartenRegistrations
 {
     public static StoreOptions UseLupiraCareer(this StoreOptions opts)

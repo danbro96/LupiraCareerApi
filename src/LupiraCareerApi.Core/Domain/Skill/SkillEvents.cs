@@ -1,6 +1,5 @@
 namespace LupiraCareerApi.Domain;
 
-// Lifecycle
 public record SkillRegistered(
     Guid SkillId,
     Guid OwnerPrincipalId,
@@ -19,7 +18,6 @@ public record SkillReparented(Guid SkillId, Guid? NewParentSkillId);
 
 public record SkillRetired(Guid SkillId);
 
-// Edge events — typed, dated interactions between a skill and the rest of the world.
 public record SkillLearned(
     Guid SkillId,
     DateOnly OccurredOn,

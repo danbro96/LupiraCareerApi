@@ -16,7 +16,7 @@ public record GoalDto(
 
 public record SetGoalRequest(Guid? SkillId, Maturity TargetMaturity, DateOnly? Deadline, string Motivation);
 
-/// <summary>Partial update (PATCH): re-target the goal's maturity and/or deadline.</summary>
+/// <summary>Partial update (PATCH): only non-null fields are applied, each emitting its own domain event.</summary>
 public record RescopeGoalRequest(Maturity? TargetMaturity, DateOnly? Deadline);
 
 public record RecordProgressRequest(string Note, Guid? LinkedEventId);
