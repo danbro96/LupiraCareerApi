@@ -104,6 +104,7 @@ if (args.Contains("--apply-schema"))
 {
     var store = app.Services.GetRequiredService<IDocumentStore>();
     await store.Storage.ApplyAllConfiguredChangesToDatabaseAsync();
+    Console.WriteLine("Schema applied.");
     return;
 }
 
