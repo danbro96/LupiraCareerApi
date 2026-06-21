@@ -7,7 +7,7 @@ public static class GoalsEndpoints
 {
     public static IEndpointRouteBuilder MapGoals(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/goals").RequireAuthorization("ApiPolicy").WithTags("Goals");
+        var g = app.MapGroup("/goals").RequireAuthorization("ApiPolicy").WithTags("Goals");
 
         g.MapGet("", (GoalsHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (GoalsHandler h, SetGoalRequest body, CancellationToken ct) => h.CreateAsync(body, ct));

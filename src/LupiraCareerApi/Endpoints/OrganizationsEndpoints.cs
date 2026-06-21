@@ -7,7 +7,7 @@ public static class OrganizationsEndpoints
 {
     public static IEndpointRouteBuilder MapOrganizations(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/organizations").RequireAuthorization("ApiPolicy").WithTags("Organizations");
+        var g = app.MapGroup("/organizations").RequireAuthorization("ApiPolicy").WithTags("Organizations");
 
         g.MapGet("", (OrganizationsHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (OrganizationsHandler h, CreateOrganizationRequest body, CancellationToken ct) => h.CreateAsync(body, ct));

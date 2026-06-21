@@ -7,7 +7,7 @@ public static class ArtifactsEndpoints
 {
     public static IEndpointRouteBuilder MapArtifacts(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/artifacts").RequireAuthorization("ApiPolicy").WithTags("Artifacts");
+        var g = app.MapGroup("/artifacts").RequireAuthorization("ApiPolicy").WithTags("Artifacts");
 
         g.MapGet("", (ArtifactsHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (ArtifactsHandler h, RegisterArtifactRequest body, CancellationToken ct) => h.RegisterAsync(body, ct));

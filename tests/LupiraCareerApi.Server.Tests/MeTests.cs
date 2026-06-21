@@ -10,7 +10,7 @@ public class MeTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Me_returns_jit_provisioned_identity()
     {
         var api = Factory.ApiClient("anna@strivo.se");
-        var me = await api.GetFromJsonAsync<MeDto>("/api/me", TestJson.Options);
+        var me = await api.GetFromJsonAsync<MeDto>("/me", TestJson.Options);
         Assert.Equal("anna@strivo.se", me!.Email);
         Assert.NotEqual(Guid.Empty, me.Id);
     }

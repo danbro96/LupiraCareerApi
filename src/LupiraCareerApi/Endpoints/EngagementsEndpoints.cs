@@ -7,7 +7,7 @@ public static class EngagementsEndpoints
 {
     public static IEndpointRouteBuilder MapEngagements(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/engagements").RequireAuthorization("ApiPolicy").WithTags("Engagements");
+        var g = app.MapGroup("/engagements").RequireAuthorization("ApiPolicy").WithTags("Engagements");
 
         g.MapGet("", (EngagementsHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (EngagementsHandler h, CreateEngagementRequest body, CancellationToken ct) => h.CreateAsync(body, ct));

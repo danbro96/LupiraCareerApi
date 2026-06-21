@@ -18,15 +18,15 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var org = await CreateOrganizationAsync(Anna, "Strivo AB");
 
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<OrganizationDto>>("/api/organizations", TestJson.Options))!);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/organizations/{org.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<OrganizationDto>>("/organizations", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/organizations/{org.Id}")).StatusCode);
     }
 
     [Fact]
     public async Task Other_principal_cannot_reference_my_organization_in_an_engagement()
     {
         var org = await CreateOrganizationAsync(Anna, "Strivo AB");
-        var resp = await Bjorn.PostAsJsonAsync("/api/engagements",
+        var resp = await Bjorn.PostAsJsonAsync("/engagements",
             new CreateEngagementRequest { Kind = EngagementKind.Employment, OrganizationId = org.Id, Start = new DateOnly(2020, 1, 1), Location = null, Summary = null }, TestJson.Options);
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
@@ -36,48 +36,48 @@ public class IsolationTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var org = await CreateOrganizationAsync(Anna);
         var eng = await CreateEngagementAsync(Anna, org.Id);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/engagements/{eng.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<EngagementDto>>("/api/engagements", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/engagements/{eng.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<EngagementDto>>("/engagements", TestJson.Options))!);
     }
 
     [Fact]
     public async Task Other_principal_cannot_read_or_mutate_my_project()
     {
         var project = await CreateProjectAsync(Anna);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/projects/{project.Id}")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.PostAsync($"/api/projects/{project.Id}/archive", null)).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ProjectDto>>("/api/projects", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/projects/{project.Id}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.PostAsync($"/projects/{project.Id}/archive", null)).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ProjectDto>>("/projects", TestJson.Options))!);
     }
 
     [Fact]
     public async Task Other_principal_cannot_read_my_skill()
     {
         var skill = await RegisterSkillAsync(Anna);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/skills/{skill.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<SkillDto>>("/api/skills", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/skills/{skill.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<SkillDto>>("/skills", TestJson.Options))!);
     }
 
     [Fact]
     public async Task Other_principal_cannot_read_my_goal()
     {
         var goal = await CreateGoalAsync(Anna);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/goals/{goal.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<GoalDto>>("/api/goals", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/goals/{goal.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<GoalDto>>("/goals", TestJson.Options))!);
     }
 
     [Fact]
     public async Task Other_principal_cannot_read_my_artifact()
     {
         var artifact = await RegisterArtifactAsync(Anna);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/artifacts/{artifact.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ArtifactDto>>("/api/artifacts", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/artifacts/{artifact.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<ArtifactDto>>("/artifacts", TestJson.Options))!);
     }
 
     [Fact]
     public async Task Other_principal_cannot_read_my_media()
     {
         var media = await RegisterMediaAsync(Anna);
-        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/api/media/{media.Id}")).StatusCode);
-        Assert.Empty((await Bjorn.GetFromJsonAsync<List<MediaDto>>("/api/media", TestJson.Options))!);
+        Assert.Equal(HttpStatusCode.NotFound, (await Bjorn.GetAsync($"/media/{media.Id}")).StatusCode);
+        Assert.Empty((await Bjorn.GetFromJsonAsync<List<MediaDto>>("/media", TestJson.Options))!);
     }
 }

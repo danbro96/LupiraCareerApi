@@ -7,7 +7,7 @@ public static class ProfileEndpoints
 {
     public static IEndpointRouteBuilder MapProfile(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/profile").RequireAuthorization("ApiPolicy").WithTags("Profile");
+        var g = app.MapGroup("/profile").RequireAuthorization("ApiPolicy").WithTags("Profile");
 
         g.MapGet("", (ProfileHandler h, CancellationToken ct) => h.GetAsync(ct))
             .WithSummary("The caller's profile (an empty shell if none exists yet).");

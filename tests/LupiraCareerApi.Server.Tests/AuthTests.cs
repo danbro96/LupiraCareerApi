@@ -9,7 +9,7 @@ public class AuthTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Unauthenticated_request_is_rejected()
     {
         var anon = Factory.CreateClient(); // no X-Dev-User header
-        var resp = await anon.GetAsync("/api/me");
+        var resp = await anon.GetAsync("/me");
         Assert.Equal(HttpStatusCode.Unauthorized, resp.StatusCode);
     }
 
@@ -17,7 +17,7 @@ public class AuthTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Every_api_surface_requires_auth()
     {
         var anon = Factory.CreateClient();
-        foreach (var path in new[] { "/api/organizations", "/api/engagements", "/api/projects", "/api/skills", "/api/goals", "/api/artifacts", "/api/media", "/api/resume", "/api/experience", "/api/profile" })
+        foreach (var path in new[] { "/organizations", "/engagements", "/projects", "/skills", "/goals", "/artifacts", "/media", "/resume", "/experience", "/profile" })
         {
             var resp = await anon.GetAsync(path);
             Assert.Equal(HttpStatusCode.Unauthorized, resp.StatusCode);

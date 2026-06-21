@@ -165,7 +165,7 @@ Inline projections rebuilt as events are appended:
 - **ExperienceRow** — a unified, owner-scoped timeline of engagements *and* projects with their
   applied skills (**multi-stream** — keyed off both engagement and project events).
 
-`GET /api/resume` and `GET /api/experience` compose these. **Reverse-link views** (the artifacts/media
+`GET /resume` and `GET /experience` compose these. **Reverse-link views** (the artifacts/media
 attached to a given project/skill/engagement) are *not* dedicated projections — they are served by
 query-time `Contains()` lookups in the services, which is appropriate at personal-portfolio scale.
 

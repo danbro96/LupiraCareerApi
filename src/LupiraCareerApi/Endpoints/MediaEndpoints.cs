@@ -7,7 +7,7 @@ public static class MediaEndpoints
 {
     public static IEndpointRouteBuilder MapMedia(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/media").RequireAuthorization("ApiPolicy").WithTags("Media");
+        var g = app.MapGroup("/media").RequireAuthorization("ApiPolicy").WithTags("Media");
 
         g.MapGet("", (MediaHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (MediaHandler h, RegisterMediaRequest body, CancellationToken ct) => h.RegisterAsync(body, ct));

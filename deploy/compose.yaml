@@ -15,7 +15,7 @@ services:
       Auth__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
       Auth__Audience: ${AUTH_AUDIENCE:-lupira-career}
 
-      # MCP surface (/api/mcp) is LAN/WireGuard-only — it is NOT added to the Cloudflare Tunnel.
+      # MCP surface (/mcp) is LAN/WireGuard-only — it is NOT added to the Cloudflare Tunnel.
 
       # OTEL — same Basic Auth header convention as the other .NET apps (http/protobuf; 5-min metric cadence).
       # Env-gated in Program.cs: without OTEL_EXPORTER_OTLP_ENDPOINT nothing is exported.

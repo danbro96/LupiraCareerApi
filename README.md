@@ -12,7 +12,7 @@ Built with .NET 10 and [Marten](https://martendb.io) event sourcing on PostgreSQ
   full event history; profiles, organizations, and identity are plain documents.
 - **Multi-principal** — every record is owned by a principal; one deployment safely serves many users,
   and you only ever see your own data.
-- **Fully authenticated** — every `/api/**` endpoint requires an authenticated caller (OIDC JWT).
+- **Fully authenticated** — every endpoint requires an authenticated caller (OIDC JWT).
   There are no anonymous business endpoints; what (if anything) is shown publicly is a decision for the
   consuming application, not this API.
 - **Two transports, one core** — REST and MCP sit on the same application services, with identical
@@ -23,7 +23,7 @@ event-sourcing design.
 
 ## API surface
 
-### REST (`/api/**`)
+### REST (at root)
 
 Resource-oriented and conventional:
 
@@ -31,7 +31,7 @@ Resource-oriented and conventional:
 - `PUT`/`DELETE` for sub-resource membership (e.g. attach/detach a skill or an artifact/media link).
 - `POST` sub-actions only for genuine event-sourced transitions — e.g. project `ship`/`shelve`/`archive`,
   skill `learnings`/`applications`/`deepenings`, goal `achieve`/`abandon`.
-- `GET /api/resume` and `GET /api/experience` compose the read models into a résumé and a unified
+- `GET /resume` and `GET /experience` compose the read models into a résumé and a unified
   engagement+project timeline.
 - Errors are returned as RFC 7807 `application/problem+json`.
 
@@ -40,7 +40,7 @@ The full contract is served by the running app:
 - **OpenAPI document** — `GET /openapi/v1.json`
 - **API reference UI** ([Scalar](https://scalar.com)) — `GET /scalar/v1`
 
-### MCP (`/api/mcp`)
+### MCP (`/mcp`)
 
 An MCP server exposing the career graph as agent tools, each scoped to the authenticated caller:
 `list_engagements`, `create_engagement`, `list_projects`, `create_project`, `list_skills`,
@@ -81,7 +81,7 @@ In **Development** you can authenticate without an OIDC provider by passing an e
 `X-Dev-User` header — the principal is JIT-provisioned on first use:
 
 ```bash
-curl -H "X-Dev-User: me@example.com" http://localhost:8080/api/me
+curl -H "X-Dev-User: me@example.com" http://localhost:8080/me
 ```
 
 Then browse the API at `http://localhost:8080/scalar/v1`.

@@ -12,7 +12,7 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Register_with_blank_name_is_rejected()
     {
         var api = Factory.ApiClient("anna@strivo.se");
-        var resp = await api.PostAsJsonAsync("/api/skills", new RegisterSkillRequest { Name = "  ", Category = SkillCategory.Language, Aliases = null, ParentSkillId = null }, TestJson.Options);
+        var resp = await api.PostAsJsonAsync("/skills", new RegisterSkillRequest { Name = "  ", Category = SkillCategory.Language, Aliases = null, ParentSkillId = null }, TestJson.Options);
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
 
@@ -23,7 +23,7 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
         var parent = await RegisterSkillAsync(api, ".NET");
         var skill = await RegisterSkillAsync(api, "C#");
 
-        var resp = await api.PatchAsJsonAsync($"/api/skills/{skill.Id}", new UpdateSkillRequest { Name = "C Sharp", Category = SkillCategory.Framework, ParentSkillId = parent.Id }, TestJson.Options);
+        var resp = await api.PatchAsJsonAsync($"/skills/{skill.Id}", new UpdateSkillRequest { Name = "C Sharp", Category = SkillCategory.Framework, ParentSkillId = parent.Id }, TestJson.Options);
         resp.EnsureSuccessStatusCode();
         var updated = await resp.Content.ReadFromJsonAsync<SkillDto>(TestJson.Options);
         Assert.Equal("C Sharp", updated!.Name);
@@ -36,9 +36,9 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var skill = await RegisterSkillAsync(api);
-        await api.PostAsJsonAsync($"/api/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "csharp" }, TestJson.Options);
-        await api.PostAsJsonAsync($"/api/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "csharp" }, TestJson.Options);
-        var resp = await api.PostAsJsonAsync($"/api/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "c-sharp" }, TestJson.Options);
+        await api.PostAsJsonAsync($"/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "csharp" }, TestJson.Options);
+        await api.PostAsJsonAsync($"/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "csharp" }, TestJson.Options);
+        var resp = await api.PostAsJsonAsync($"/skills/{skill.Id}/aliases", new AddAliasRequest { Alias = "c-sharp" }, TestJson.Options);
         var dto = await resp.Content.ReadFromJsonAsync<SkillDto>(TestJson.Options);
         Assert.Equal(2, dto!.Aliases.Count);
     }
@@ -48,7 +48,7 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var skill = await RegisterSkillAsync(api);
-        var dto = await (await api.PostAsync($"/api/skills/{skill.Id}/retire", null)).Content.ReadFromJsonAsync<SkillDto>(TestJson.Options);
+        var dto = await (await api.PostAsync($"/skills/{skill.Id}/retire", null)).Content.ReadFromJsonAsync<SkillDto>(TestJson.Options);
         Assert.True(dto!.Retired);
     }
 
@@ -59,18 +59,18 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
         var skill = await RegisterSkillAsync(api, "Kafka");
         var ctx = SkillEdgeContext.External("self-study");
 
-        await api.PostAsJsonAsync($"/api/skills/{skill.Id}/learnings", new LearnSkillRequest { OccurredOn = new DateOnly(2019, 1, 1), InitialMaturity = Maturity.Working, Context = ctx, Evidence = null, Location = null }, TestJson.Options);
-        await api.PostAsJsonAsync($"/api/skills/{skill.Id}/applications", new ApplySkillRequest { OccurredOn = new DateOnly(2020, 1, 1), Intensity = Intensity.Core, Context = ctx, Evidence = null, Location = null }, TestJson.Options);
-        await api.PostAsJsonAsync($"/api/skills/{skill.Id}/deepenings", new DeepenSkillRequest { OccurredOn = new DateOnly(2021, 1, 1), FromMaturity = Maturity.Working, ToMaturity = Maturity.Expert, Note = "led a migration", Context = ctx, Evidence = null, Location = null }, TestJson.Options);
+        await api.PostAsJsonAsync($"/skills/{skill.Id}/learnings", new LearnSkillRequest { OccurredOn = new DateOnly(2019, 1, 1), InitialMaturity = Maturity.Working, Context = ctx, Evidence = null, Location = null }, TestJson.Options);
+        await api.PostAsJsonAsync($"/skills/{skill.Id}/applications", new ApplySkillRequest { OccurredOn = new DateOnly(2020, 1, 1), Intensity = Intensity.Core, Context = ctx, Evidence = null, Location = null }, TestJson.Options);
+        await api.PostAsJsonAsync($"/skills/{skill.Id}/deepenings", new DeepenSkillRequest { OccurredOn = new DateOnly(2021, 1, 1), FromMaturity = Maturity.Working, ToMaturity = Maturity.Expert, Note = "led a migration", Context = ctx, Evidence = null, Location = null }, TestJson.Options);
 
-        var timeline = await api.GetFromJsonAsync<SkillTimeline>($"/api/skills/{skill.Id}/timeline", TestJson.Options);
+        var timeline = await api.GetFromJsonAsync<SkillTimeline>($"/skills/{skill.Id}/timeline", TestJson.Options);
         Assert.Equal(3, timeline!.Entries.Count);
         Assert.Contains(timeline.Entries, e => e.Kind == "Learned");
         Assert.Contains(timeline.Entries, e => e.Kind == "Applied");
         Assert.Contains(timeline.Entries, e => e.Kind == "Deepened");
 
         // Maturity tracks Learned + Deepened only — an application does not move it.
-        var maturity = await api.GetFromJsonAsync<SkillMaturity>($"/api/skills/{skill.Id}/maturity", TestJson.Options);
+        var maturity = await api.GetFromJsonAsync<SkillMaturity>($"/skills/{skill.Id}/maturity", TestJson.Options);
         Assert.Equal(Maturity.Expert, maturity!.Current);
         Assert.Equal(2, maturity.Trajectory.Count);
     }
@@ -80,7 +80,7 @@ public class SkillsTests(CareerApiTestFactory f) : IntegrationTest(f)
     {
         var api = Factory.ApiClient("anna@strivo.se");
         var missing = Guid.NewGuid();
-        Assert.Equal(HttpStatusCode.NotFound, (await api.GetAsync($"/api/skills/{missing}/timeline")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await api.GetAsync($"/api/skills/{missing}/maturity")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await api.GetAsync($"/skills/{missing}/timeline")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await api.GetAsync($"/skills/{missing}/maturity")).StatusCode);
     }
 }

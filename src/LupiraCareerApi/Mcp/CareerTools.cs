@@ -8,7 +8,7 @@ using System.ComponentModel;
 namespace LupiraCareerApi.Mcp;
 
 /// <summary>
-/// The agent's MCP tool surface, mounted at /api/mcp. Each tool resolves the caller via <see cref="CurrentUser"/>
+/// The agent's MCP tool surface, mounted at /mcp. Each tool resolves the caller via <see cref="CurrentUser"/>
 /// and delegates to the same Core services as REST, so everything is scoped to the caller's own career graph.
 /// Non-Ok outcomes surface as a structured <see cref="McpException"/> tool error.
 /// </summary>

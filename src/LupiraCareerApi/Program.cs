@@ -36,7 +36,7 @@ builder.Services.AddScoped<ArtifactsHandler>();
 builder.Services.AddScoped<MediaHandler>();
 builder.Services.AddScoped<ResumeHandler>();
 
-// Auth: OIDC JWT for the owner surface (/api). Every endpoint requires an authenticated principal.
+// Auth: OIDC JWT for the owner surface (at root). Every endpoint requires an authenticated principal.
 var authBuilder = builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -94,7 +94,7 @@ builder.Services.ConfigureHttpJsonOptions(o =>
 
 builder.Services.AddOpenApi();
 
-// MCP server for the agent, mounted at /api/mcp (LAN/WireGuard-only — not published through the tunnel).
+// MCP server for the agent, mounted at /mcp (LAN/WireGuard-only — not published through the tunnel).
 builder.Services.AddMcpServer().WithHttpTransport().WithTools<CareerTools>();
 
 var app = builder.Build();
@@ -127,7 +127,7 @@ app.MapHealthChecks("/livez", new HealthCheckOptions { Predicate = _ => false })
 app.MapHealthChecks("/readyz", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready") })
     .DisableHttpMetrics();
 
-// Owner write/read surface (/api), one MapXxx per resource.
+// Owner write/read surface (at root), one MapXxx per resource.
 app.MapMe();
 app.MapProfile();
 app.MapOrganizations();
@@ -140,7 +140,7 @@ app.MapMedia();
 app.MapResume();
 
 // Agent MCP transport (LAN/WireGuard-only; excluded from the Cloudflare Tunnel at the edge).
-app.MapMcp("/api/mcp").RequireAuthorization("ApiPolicy");
+app.MapMcp("/mcp").RequireAuthorization("ApiPolicy");
 
 app.Run();
 

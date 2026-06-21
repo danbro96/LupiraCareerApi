@@ -7,7 +7,7 @@ public static class SkillsEndpoints
 {
     public static IEndpointRouteBuilder MapSkills(this IEndpointRouteBuilder app)
     {
-        var g = app.MapGroup("/api/skills").RequireAuthorization("ApiPolicy").WithTags("Skills");
+        var g = app.MapGroup("/skills").RequireAuthorization("ApiPolicy").WithTags("Skills");
 
         g.MapGet("", (SkillsHandler h, CancellationToken ct) => h.ListAsync(ct));
         g.MapPost("", (SkillsHandler h, RegisterSkillRequest body, CancellationToken ct) => h.RegisterAsync(body, ct));
