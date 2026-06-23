@@ -19,6 +19,11 @@ public sealed class ProfileService(IDocumentSession session)
     {
         if (string.IsNullOrWhiteSpace(r.FullName)) return OpResult<ProfileDto>.Invalid("FullName is required.");
 
+        var handle = string.IsNullOrWhiteSpace(r.PublicHandle) ? null : r.PublicHandle.Trim().ToLowerInvariant();
+        if (r.IsPublished && handle is null) return OpResult<ProfileDto>.Invalid("A PublicHandle is required to publish.");
+        if (handle is not null && await session.Query<Profile>().AnyAsync(x => x.PublicHandle == handle && x.OwnerPrincipalId != ownerId, ct))
+            return OpResult<ProfileDto>.Conflict("That public handle is already taken.");
+
         var p = await session.Query<Profile>().FirstOrDefaultAsync(x => x.OwnerPrincipalId == ownerId, ct)
             ?? new Profile { Id = Guid.NewGuid(), OwnerPrincipalId = ownerId };
 
@@ -29,6 +34,8 @@ public sealed class ProfileService(IDocumentSession session)
         p.GithubUrl = r.GithubUrl;
         p.LinkedInUrl = r.LinkedInUrl;
         p.WebsiteUrl = r.WebsiteUrl;
+        p.PublicHandle = handle;
+        p.IsPublished = r.IsPublished;
         session.Store(p);
         await session.SaveChangesAsync(ct);
         return OpResult<ProfileDto>.Ok(p.ToDto());

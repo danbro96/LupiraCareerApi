@@ -17,6 +17,8 @@ public sealed class ProfileDto
     public string? GithubUrl { get; set; }
     public string? LinkedInUrl { get; set; }
     public string? WebsiteUrl { get; set; }
+    public string? PublicHandle { get; set; }
+    public bool IsPublished { get; set; }
 }
 
 public sealed class UpdateProfileRequest
@@ -28,4 +30,6 @@ public sealed class UpdateProfileRequest
     public string? GithubUrl { get; set; }
     public string? LinkedInUrl { get; set; }
     public string? WebsiteUrl { get; set; }
+    public string? PublicHandle { get; set; }
+    public bool IsPublished { get; set; }
 }

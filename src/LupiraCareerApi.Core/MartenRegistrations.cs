@@ -30,7 +30,7 @@ public static class MartenRegistrations
 
         // Plain documents (identity, profile, organizations) + the indexes the services query by.
         opts.Schema.For<Principal>().Index(x => x.AuthentikSub).Index(x => x.Email);
-        opts.Schema.For<Profile>().Index(x => x.OwnerPrincipalId);
+        opts.Schema.For<Profile>().Index(x => x.OwnerPrincipalId).Index(x => x.PublicHandle, idx => idx.IsUnique = true);
         opts.Schema.For<Organization>().Index(x => x.OwnerPrincipalId);
 
         return opts;

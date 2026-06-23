@@ -35,6 +35,7 @@ builder.Services.AddScoped<GoalsHandler>();
 builder.Services.AddScoped<ArtifactsHandler>();
 builder.Services.AddScoped<MediaHandler>();
 builder.Services.AddScoped<ResumeHandler>();
+builder.Services.AddScoped<PublicPortfolioHandler>();
 
 // Auth: OIDC JWT for the owner surface (at root). Every endpoint requires an authenticated principal.
 var authBuilder = builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -54,7 +55,11 @@ string[] apiSchemes = builder.Environment.IsDevelopment()
     : [JwtBearerDefaults.AuthenticationScheme];
 
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("ApiPolicy", p => p.AddAuthenticationSchemes(apiSchemes).RequireAuthenticatedUser());
+    .AddPolicy("ApiPolicy", p => p.AddAuthenticationSchemes(apiSchemes).RequireAuthenticatedUser())
+    // Public portfolio surface: still requires a valid token (no anonymous reads), but the owner comes from the
+    // route handle rather than the caller's principal. Separate from ApiPolicy so a scope/sub gate can be added
+    // here later without touching the owner routes.
+    .AddPolicy("PublicReadPolicy", p => p.AddAuthenticationSchemes(apiSchemes).RequireAuthenticatedUser());
 
 // Observability: OpenTelemetry -> OpenObserve, env-gated. The OTLP exporter reads OTEL_EXPORTER_OTLP_*
 // automatically (protocol + Basic auth header set in compose).
@@ -139,6 +144,9 @@ app.MapGoals();
 app.MapArtifacts();
 app.MapMedia();
 app.MapResume();
+
+// Public, handle-addressed read surface (at /public/{handle}); gated by a valid token, not owner-scoped.
+app.MapPublicPortfolio();
 
 // Agent MCP transport (LAN/WireGuard-only; excluded from the Cloudflare Tunnel at the edge).
 app.MapMcp("/mcp").RequireAuthorization("ApiPolicy");

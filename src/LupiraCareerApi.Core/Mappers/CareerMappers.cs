@@ -110,5 +110,7 @@ public static class CareerMappers
         GithubUrl = p.GithubUrl,
         LinkedInUrl = p.LinkedInUrl,
         WebsiteUrl = p.WebsiteUrl,
+        PublicHandle = p.PublicHandle,
+        IsPublished = p.IsPublished,
     };
 }

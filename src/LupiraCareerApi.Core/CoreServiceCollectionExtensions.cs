@@ -35,6 +35,7 @@ public static class CoreServiceCollectionExtensions
         services.AddScoped<ArtifactService>();
         services.AddScoped<MediaService>();
         services.AddScoped<ResumeService>();
+        services.AddScoped<PublicPortfolioService>();
         return services;
     }
 }
