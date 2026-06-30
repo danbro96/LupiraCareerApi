@@ -1,5 +1,5 @@
 # lupira-career-api — example Docker Compose definition.
-# Single .NET 10 service: REST + MCP (/api) over one Marten event store in Postgres (lupira_career). No filesystem state.
+# Single .NET 10 service: REST + MCP at root over one Marten event store in Postgres (lupira_career). No filesystem state.
 # The ${VAR:-default} hostnames/ports below are sample values — override them for your own environment.
 services:
   lupira-career-api:
@@ -10,7 +10,7 @@ services:
       # `--apply-schema` (a one-shot deploy step), not here.
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=lupira_career;Username=lupira_career_user;Password=${LUPIRA_CAREER_DB_PASSWORD:?required}"
 
-      # /api auth — Authentik OIDC (JWT); every endpoint requires an authenticated principal. The headless
+      # REST auth — Authentik OIDC (JWT); every endpoint requires an authenticated principal. The headless
       # agent obtains a member-scoped token via device-code + refresh at Authentik (no token-exchange grant) — no agent secret here.
       Auth__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
       Auth__Audience: ${AUTH_AUDIENCE:-lupira-career}
@@ -23,7 +23,7 @@ services:
       OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL:-http/protobuf}
       OTEL_EXPORTER_OTLP_HEADERS: ${OTEL_EXPORTER_OTLP_HEADERS:-}
       OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL:-300000}
-      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=prod,host.name=medelynas}
+      OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES:-deployment.environment=prod}
     ports:
       - "${HOST_PORT:-41080}:8080"
     healthcheck:
