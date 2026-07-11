@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using LupiraCareerApi.Domain;
 using Marten;
 
@@ -28,16 +29,33 @@ public sealed class PrincipalDirectory(IDocumentSession session)
         if (p is null)
         {
             p = new Principal { Id = Guid.NewGuid(), AuthentikSub = sub ?? $"email|{email}", Email = email, DisplayName = name };
+            StampSession(p, sub);
             session.Store(p);
             await session.SaveChangesAsync(ct);
             return p;
         }
 
+        StampSession(p, sub);
         var changed = false;
         if (sub is not null && p.AuthentikSub != sub && p.AuthentikSub.StartsWith("email|", StringComparison.Ordinal)) { p.AuthentikSub = sub; changed = true; }
         if (email.Length > 0 && p.Email != email) { p.Email = email; changed = true; }
         if (name is not null && p.DisplayName != name) { p.DisplayName = name; changed = true; }
         if (changed) { session.Store(p); await session.SaveChangesAsync(ct); }
         return p;
+    }
+
+    /// <summary>Stamps the acting principal + live trace ids onto the write session so every event appended later in
+    /// this request carries provenance (actor / correlation / causation / source). Runs before any append — this is
+    /// the one point every surface funnels through — because provenance is unbackfillable.</summary>
+    private void StampSession(Principal principal, string? sub)
+    {
+        session.LastModifiedBy = principal.Id.ToString();
+        if (Activity.Current is { } a)
+        {
+            session.CorrelationId = a.TraceId.ToString();
+            session.CausationId = a.SpanId.ToString();
+        }
+        session.SetHeader("actor.email", principal.Email);
+        session.SetHeader("source", sub is null ? "dav" : "api");   // no OIDC sub ⇒ an email-only (e.g. DAV) login
     }
 }

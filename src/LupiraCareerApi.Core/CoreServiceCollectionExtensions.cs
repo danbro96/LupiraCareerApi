@@ -1,7 +1,9 @@
+using JasperFx;
 using LupiraCareerApi;
 using LupiraCareerApi.Application;
 using Marten;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -19,8 +21,12 @@ public static class CoreServiceCollectionExtensions
         services.AddMarten(sp =>
         {
             var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("Postgres") ?? DefaultConnectionString;
+            var env = sp.GetRequiredService<IHostEnvironment>();
             var opts = new StoreOptions();
             opts.Connection(connectionString);
+            // Prod never mutates schema on boot; DDL is a deliberate --apply-schema step. Dev auto-creates
+            // so `dotnet run` and the integration tests self-provision.
+            opts.AutoCreateSchemaObjects = env.IsDevelopment() ? AutoCreate.CreateOrUpdate : AutoCreate.None;
             opts.UseLupiraCareer();
             return opts;
         }).UseLightweightSessions();

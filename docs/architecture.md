@@ -173,14 +173,24 @@ query-time `Contains()` lookups in the services, which is appropriate at persona
 
 A single Marten store, configured in [`MartenRegistrations.cs`](../src/LupiraCareerApi.Core/MartenRegistrations.cs):
 
-- Everything lives in the **`career`** schema; enums are stored as strings (System.Text.Json).
+- Everything lives in the **`career`** schema; enums are stored as **strings** (`EnumStorage.AsString`),
+  so reordering/inserting an enum value never reinterprets stored events.
+- **Event aliases are pinned** with explicit `MapEventType` (snake_case, equal to Marten's current
+  default), decoupling the stored `mt_events.type` string from the CLR type name — records can be
+  renamed/moved freely. Evolve a payload with a new versioned type + upcaster; never re-map a live alias.
+- **Provenance is stamped on every event** — correlation (OTel `TraceId`), causation (`SpanId`),
+  `actor.email` + `source` headers, and `LastModifiedBy` = the acting principal id — set once per request
+  in [`PrincipalDirectory.StampSession`](../src/LupiraCareerApi.Core/Application/PrincipalDirectory.cs),
+  the one point every authenticated request funnels through (provenance is unbackfillable).
 - Aggregates use `Snapshot<T>(SnapshotLifecycle.Inline)`; derived models are `Inline` projections.
 - Documents (`Principal`, `Profile`, `Organization`) get the indexes the services query by
   (`AuthentikSub`, `Email`, `OwnerPrincipalId`).
 
-The schema is **Marten-managed but applied deliberately**, not on boot — run the host once with
-`--apply-schema` (it calls `ApplyAllConfiguredChangesToDatabaseAsync()` and exits). Most evolution is
-additive: new event types don't alter the schema and a new projection just adds a table.
+The schema is **Marten-managed but applied deliberately**: `AutoCreateSchemaObjects` is `None` outside
+Development (Development auto-creates so `dotnet run` and the integration tests self-provision), and
+prod DDL is a one-shot `--apply-schema` run (`ApplyAllConfiguredChangesToDatabaseAsync()` then exit).
+Most evolution is additive: a new event type doesn't alter the schema and a new projection just adds a
+table.
 
 ## Ownership & multi-principal isolation
 
@@ -188,6 +198,16 @@ Every aggregate and document carries an `OwnerPrincipalId`. All reads and writes
 caller's principal, and **a request for an id the caller doesn't own returns `404`, not `403`** — the
 existence of another principal's data is never leaked. The store is therefore safely multi-principal:
 several people can use one deployment without seeing each other's career graphs.
+
+### Cross-aggregate references
+
+Within one owner's graph, aggregates reference each other by soft `Guid` (e.g. `Engagement.SkillIds`,
+`Goal.SkillId`, artifact/media link rows) — no FKs. These are **read-time-tolerant by design**:
+archiving, retiring, or ending an aggregate does **not** cascade-scrub the ids that point at it; the
+read surfaces filter archived/retired items instead (e.g. `PublicPortfolioService`). The one enforced
+guard is `OrganizationService.DeleteAsync`, which refuses to delete an organization still referenced by
+an engagement. There is deliberately **no cross-API `Relation` document** — unlike the tasks/calendar
+APIs, the career graph is self-contained and isn't wired into the assistant's cross-service link graph.
 
 ## Identity
 
