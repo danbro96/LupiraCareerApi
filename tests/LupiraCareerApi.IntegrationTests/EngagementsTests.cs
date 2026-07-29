@@ -1,7 +1,7 @@
 using LupiraCareerApi.Domain;
 using LupiraCareerApi.Dtos;
-using System.Net;
 using System.Net.Http.Json;
+using System.Net;
 using Xunit;
 
 namespace LupiraCareerApi.IntegrationTests;

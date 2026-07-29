@@ -18,7 +18,7 @@ public class ProvenanceTests(CareerApiTestFactory f) : IntegrationTest(f)
         var org = await CreateOrganizationAsync(api, "Strivo AB");
         var engagement = await CreateEngagementAsync(api, org.Id);
 
-        await using var q = Factory.Store.QuerySession();
+        await using var q = Store.QuerySession();
         var events = await q.Events.FetchStreamAsync(engagement.Id);
         Assert.NotEmpty(events);
         Assert.Equal("anna@strivo.se", events[0].Headers?[EventActor.EmailHeaderKey]);
@@ -28,7 +28,7 @@ public class ProvenanceTests(CareerApiTestFactory f) : IntegrationTest(f)
     [Fact]
     public async Task Resolving_a_principal_does_not_restamp_the_session()
     {
-        await using var session = Factory.Store.LightweightSession();
+        await using var session = Store.LightweightSession();
         var directory = new LupiraCareerApi.Application.PrincipalDirectory(session);
 
         var caller = await directory.ResolveOrProvisionAsync("sub-caller", "caller@x.test", "Caller");

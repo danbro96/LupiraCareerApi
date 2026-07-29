@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Domain;
+namespace LupiraCareerApi.Domain.Identity;
 
 /// <summary>
 /// The identity anchor. JIT-provisioned on first login by Authentik <c>sub</c> (durable) then email (mutable),

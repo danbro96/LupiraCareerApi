@@ -1,3 +1,4 @@
+using Marten;
 using LupiraCareerApi.Domain;
 using LupiraCareerApi.Dtos;
 using System.Net.Http.Json;
@@ -11,6 +12,8 @@ namespace LupiraCareerApi.IntegrationTests;
 public abstract class IntegrationTest(CareerApiTestFactory factory) : IAsyncLifetime
 {
     protected readonly CareerApiTestFactory Factory = factory;
+
+    protected IDocumentStore Store => Factory.Store;
 
     public async Task InitializeAsync() => await Factory.ResetAsync();
     public Task DisposeAsync() => Task.CompletedTask;

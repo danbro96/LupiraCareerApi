@@ -1,3 +1,4 @@
+using LupiraCareerApi.Domain.Identity;
 using LupiraCareerApi.Domain;
 using Marten;
 using Npgsql;

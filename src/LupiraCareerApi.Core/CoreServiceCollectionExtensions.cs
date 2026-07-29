@@ -1,6 +1,7 @@
 using JasperFx;
-using LupiraCareerApi;
 using LupiraCareerApi.Application;
+using LupiraCareerApi.Data;
+using LupiraCareerApi;
 using Marten;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
