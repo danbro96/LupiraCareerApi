@@ -60,7 +60,6 @@ public static class MartenRegistrations
     /// </summary>
     private static void MapEvents(StoreOptions opts)
     {
-        // Engagement stream
         opts.Events.MapEventType<EngagementStarted>("engagement_started");
         opts.Events.MapEventType<EngagementEnded>("engagement_ended");
         opts.Events.MapEventType<EngagementSummaryRevised>("engagement_summary_revised");
@@ -72,7 +71,6 @@ public static class MartenRegistrations
         opts.Events.MapEventType<EngagementSkillAttached>("engagement_skill_attached");
         opts.Events.MapEventType<EngagementSkillDetached>("engagement_skill_detached");
 
-        // Project stream
         opts.Events.MapEventType<ProjectStarted>("project_started");
         opts.Events.MapEventType<ProjectRenamed>("project_renamed");
         opts.Events.MapEventType<ProjectDescribed>("project_described");
@@ -85,7 +83,6 @@ public static class MartenRegistrations
         opts.Events.MapEventType<ProjectSkillAttached>("project_skill_attached");
         opts.Events.MapEventType<ProjectSkillDetached>("project_skill_detached");
 
-        // Skill stream
         opts.Events.MapEventType<SkillRegistered>("skill_registered");
         opts.Events.MapEventType<SkillRenamed>("skill_renamed");
         opts.Events.MapEventType<SkillCategoryChanged>("skill_category_changed");
@@ -99,14 +96,12 @@ public static class MartenRegistrations
         opts.Events.MapEventType<SkillReferenced>("skill_referenced");
         opts.Events.MapEventType<SkillsCombined>("skills_combined");
 
-        // Goal stream
         opts.Events.MapEventType<GoalSet>("goal_set");
         opts.Events.MapEventType<GoalRescoped>("goal_rescoped");
         opts.Events.MapEventType<GoalProgressRecorded>("goal_progress_recorded");
         opts.Events.MapEventType<GoalAchieved>("goal_achieved");
         opts.Events.MapEventType<GoalAbandoned>("goal_abandoned");
 
-        // Artifact stream
         opts.Events.MapEventType<ArtifactRegistered>("artifact_registered");
         opts.Events.MapEventType<ArtifactUpdated>("artifact_updated");
         opts.Events.MapEventType<ArtifactLinkedToProject>("artifact_linked_to_project");
@@ -115,7 +110,6 @@ public static class MartenRegistrations
         opts.Events.MapEventType<ArtifactUnlinked>("artifact_unlinked");
         opts.Events.MapEventType<ArtifactArchived>("artifact_archived");
 
-        // MediaAsset stream
         opts.Events.MapEventType<MediaRegistered>("media_registered");
         opts.Events.MapEventType<MediaLinkedToProject>("media_linked_to_project");
         opts.Events.MapEventType<MediaLinkedToSkill>("media_linked_to_skill");
