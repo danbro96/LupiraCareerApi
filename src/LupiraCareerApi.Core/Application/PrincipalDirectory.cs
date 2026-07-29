@@ -20,6 +20,10 @@ namespace LupiraCareerApi.Application;
 /// </summary>
 public sealed class PrincipalDirectory(IDocumentSession session)
 {
+    /// <summary>How stale <see cref="Principal.LastSeenAt"/> must be before a read refreshes it, so
+    /// steady-state resolution doesn't write on every authenticated request.</summary>
+    private static readonly TimeSpan LastSeenRefresh = TimeSpan.FromMinutes(5);
+
     public async Task<Principal?> FindByEmailAsync(string email, CancellationToken ct = default)
     {
         email = Normalize(email);
@@ -31,11 +35,12 @@ public sealed class PrincipalDirectory(IDocumentSession session)
     {
         email = Normalize(email);
 
+        var now = DateTimeOffset.UtcNow;
         var p = await FindAsync(sub, email, ct);
 
         if (p is null)
         {
-            p = new Principal { Id = Guid.NewGuid(), AuthentikSub = sub ?? $"email|{email}", Email = email, DisplayName = name };
+            p = new Principal { Id = Guid.CreateVersion7(), AuthentikSub = sub ?? $"email|{email}", Email = email, DisplayName = name, CreatedAt = now, LastSeenAt = now };
             session.Store(p);
             try
             {
@@ -56,6 +61,7 @@ public sealed class PrincipalDirectory(IDocumentSession session)
         if (sub is not null && p.AuthentikSub != sub && p.AuthentikSub.StartsWith("email|", StringComparison.Ordinal)) { p.AuthentikSub = sub; changed = true; }
         if (email.Length > 0 && p.Email != email) { p.Email = email; changed = true; }
         if (name is not null && p.DisplayName != name) { p.DisplayName = name; changed = true; }
+        if (now - p.LastSeenAt > LastSeenRefresh) { p.LastSeenAt = now; changed = true; }
         if (changed) { session.Store(p); await session.SaveChangesAsync(ct); }
         return p;
     }

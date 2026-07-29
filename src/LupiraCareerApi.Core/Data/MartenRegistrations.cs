@@ -16,10 +16,9 @@ public static class MartenRegistrations
         opts.DatabaseSchemaName = "career";
         opts.UseSystemTextJsonForSerialization(EnumStorage.AsString);
 
-        // Provenance stamped on every event — unbackfillable, so captured at write time (see
-        // PrincipalDirectory.StampSession). Correlation = OTel TraceId, causation = OTel SpanId (this API
-        // isn't offline-first, so there's no command id), headers = actor.email + source, username =
-        // acting principal id (LastModifiedBy).
+        // Provenance stamped on every event — unbackfillable, so captured at write time (see EventActor).
+        // Correlation = OTel TraceId, causation = OTel SpanId (this API isn't offline-first, so there's no
+        // command id), headers = actor.email + source, username = acting principal id (LastModifiedBy).
         opts.Events.MetadataConfig.CorrelationIdEnabled = true;
         opts.Events.MetadataConfig.CausationIdEnabled = true;
         opts.Events.MetadataConfig.HeadersEnabled = true;
@@ -45,12 +44,10 @@ public static class MartenRegistrations
         opts.Projections.Add<ExperienceProjection>(ProjectionLifecycle.Inline);
 
         // Plain documents (identity, profile, organizations) + the indexes the services query by.
-        // The Authentik sub is the resolution anchor and is unique — without the constraint, concurrent
-        // first-sight logins each insert their own row and the caller silently resolves to whichever one
-        // Postgres returns first. Email stays non-unique: it is mutable, and an `email|{email}` placeholder
-        // row legitimately shares an email with its real-sub counterpart until the upgrade lands.
+        // Unique sub: without it, concurrent first-sight logins fork one login into two principals.
+        // Email stays non-unique — mutable, and a placeholder row shares it until the sub upgrade lands.
         opts.Schema.For<Principal>().Index(x => x.AuthentikSub, i => i.IsUnique = true).Index(x => x.Email);
-        opts.Schema.For<Profile>().Index(x => x.OwnerPrincipalId).Index(x => x.PublicHandle, idx => idx.IsUnique = true);
+        opts.Schema.For<Profile>().Index(x => x.OwnerPrincipalId, i => i.IsUnique = true).Index(x => x.PublicHandle, idx => idx.IsUnique = true);
         opts.Schema.For<Organization>().Index(x => x.OwnerPrincipalId);
 
         return opts;
