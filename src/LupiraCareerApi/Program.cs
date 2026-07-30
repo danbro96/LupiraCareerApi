@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using LupiraCareerApi.Auth;
 using LupiraCareerApi.Domain;
 using LupiraCareerApi.Endpoints;
@@ -5,8 +6,8 @@ using LupiraCareerApi.Handlers;
 using LupiraCareerApi.Health;
 using LupiraCareerApi.Mcp;
 using Marten;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -16,7 +17,6 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -151,6 +151,7 @@ builder.Services.AddOpenApi("v1", options =>
                 [new OpenApiSecuritySchemeReference("Bearer", context.Document)] = new List<string>(),
             });
         }
+
         return Task.CompletedTask;
     });
 });

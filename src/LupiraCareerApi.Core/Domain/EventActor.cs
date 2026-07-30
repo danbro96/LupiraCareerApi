@@ -1,6 +1,6 @@
+using System.Diagnostics;
 using LupiraCareerApi.Domain.Identity;
 using Marten;
-using System.Diagnostics;
 
 namespace LupiraCareerApi.Domain;
 

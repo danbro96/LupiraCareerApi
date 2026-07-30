@@ -1,9 +1,9 @@
+using System.ComponentModel;
 using LupiraCareerApi.Application;
 using LupiraCareerApi.Auth;
 using LupiraCareerApi.Dtos;
-using ModelContextProtocol.Server;
 using ModelContextProtocol;
-using System.ComponentModel;
+using ModelContextProtocol.Server;
 
 namespace LupiraCareerApi.Mcp;
 

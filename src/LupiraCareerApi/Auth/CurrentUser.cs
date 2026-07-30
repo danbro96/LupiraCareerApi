@@ -1,8 +1,8 @@
-using LupiraCareerApi.Application;
-using LupiraCareerApi.Domain.Identity;
-using LupiraCareerApi.Domain;
-using Marten;
 using System.Security.Claims;
+using LupiraCareerApi.Application;
+using LupiraCareerApi.Domain;
+using LupiraCareerApi.Domain.Identity;
+using Marten;
 
 namespace LupiraCareerApi.Auth;
 
