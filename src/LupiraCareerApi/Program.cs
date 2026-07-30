@@ -110,7 +110,10 @@ builder.Services.AddHealthChecks()
 
 // Enums serialize as their names on the wire (not ints), consistent with the Marten store.
 builder.Services.ConfigureHttpJsonOptions(o =>
-    o.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+{
+    o.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+    o.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.AddOpenApi("v1", options =>
 {
