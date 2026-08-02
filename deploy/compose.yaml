@@ -12,8 +12,8 @@ services:
 
       # REST auth — Authentik OIDC (JWT); every endpoint requires an authenticated principal. The headless
       # agent obtains a member-scoped token via device-code + refresh at Authentik (no token-exchange grant) — no agent secret here.
-      Auth__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
-      Auth__Audience: ${AUTH_AUDIENCE:-lupira-career}
+      Auth__Oidc__Authority: ${AUTH_AUTHORITY:-https://auth.lupira.com/application/o/lupira-career/}
+      Auth__Oidc__Audience: ${AUTH_AUDIENCE:-lupira-career}
 
       # MCP surface (/mcp) is LAN/WireGuard-only — it is NOT added to the Cloudflare Tunnel.
 

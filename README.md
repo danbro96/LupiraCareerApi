@@ -94,8 +94,8 @@ is fully **off** unless an OTLP endpoint is set.
 | Variable | Required | Purpose |
 |---|---|---|
 | `ConnectionStrings__Postgres` | yes | PostgreSQL connection string (Marten event store + documents). |
-| `Auth__Authority` | yes (prod) | OIDC issuer/authority URL used to validate JWTs. |
-| `Auth__Audience` | yes (prod) | Expected JWT audience. |
+| `Auth__Oidc__Authority` | yes (prod) | OIDC issuer/authority URL used to validate JWTs. |
+| `Auth__Oidc__Audience` | yes (prod) | Expected JWT audience. |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | no | OTLP endpoint for traces/metrics/logs. Unset ⇒ no telemetry exported. |
 | `OTEL_EXPORTER_OTLP_PROTOCOL` | no | e.g. `http/protobuf`. |
 | `OTEL_EXPORTER_OTLP_HEADERS` | no | Exporter headers (e.g. auth). |
@@ -103,7 +103,7 @@ is fully **off** unless an OTLP endpoint is set.
 
 ### Authentication
 
-In production the API validates **OIDC JWTs** against `Auth__Authority` / `Auth__Audience` — it is an
+In production the API validates **OIDC JWTs** against `Auth__Oidc__Authority` / `Auth__Oidc__Audience` — it is an
 OAuth2/OIDC *resource server* and issues no tokens itself. It works with any compliant OIDC provider
 (Keycloak, Authentik, Auth0, Entra ID, …). A `Principal` is provisioned on first request from the
 token's `sub` (then `email`) claim.
