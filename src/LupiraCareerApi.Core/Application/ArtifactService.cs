@@ -1,4 +1,5 @@
 using LupiraCareerApi.Core.Domain.Artifacts;
+using LupiraCareerApi.Core.Domain.Artifacts.Events;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;
 using Marten;

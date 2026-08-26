@@ -1,4 +1,5 @@
 using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Projects.Events;
 using Xunit;
 
 namespace LupiraCareerApi.UnitTests;

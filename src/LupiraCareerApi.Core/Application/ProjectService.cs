@@ -1,5 +1,6 @@
 using LupiraCareerApi.Core.Domain.Engagements;
 using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Projects.Events;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;
 using Marten;

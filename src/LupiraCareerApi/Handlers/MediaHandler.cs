@@ -1,5 +1,5 @@
-using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Auth;
+using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Core.Domain.Media;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Http;

@@ -1,15 +1,6 @@
-namespace LupiraCareerApi.Core.Domain.Skills;
+using LupiraCareerApi.Core.Domain.Skills.Events;
 
-public enum SkillCategory
-{
-    Language,
-    Framework,
-    Tool,
-    Platform,
-    Method,
-    Domain,
-    Other,
-}
+namespace LupiraCareerApi.Core.Domain.Skills;
 
 /// <summary>A competence with a maturity that evolves through dated edge events (learned/applied/deepened/…).
 /// Event-sourced; one stream per skill, owned by a single <see cref="OwnerPrincipalId"/>.</summary>

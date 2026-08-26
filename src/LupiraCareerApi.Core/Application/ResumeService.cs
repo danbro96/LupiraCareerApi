@@ -3,7 +3,6 @@ using LupiraCareerApi.Core.Domain.Experiences;
 using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Domain.Profiles;
 using LupiraCareerApi.Core.Domain.Projects;
-using LupiraCareerApi.Core.Domain.Shared;
 using LupiraCareerApi.Core.Domain.Skills;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;

@@ -1,34 +1,6 @@
-using LupiraCareerApi.Core.Domain.Engagements;
-using LupiraCareerApi.Core.Domain.Projects;
-using LupiraCareerApi.Core.Domain.Skills;
+using LupiraCareerApi.Core.Domain.Artifacts.Events;
 
 namespace LupiraCareerApi.Core.Domain.Artifacts;
-
-public enum ArtifactKind
-{
-    Repo,
-    PullRequest,
-    Issue,
-    BlogPost,
-    Talk,
-    Video,
-    Certification,
-    Paper,
-}
-
-public enum ArtifactRole
-{
-    Evidence,
-    Output,
-    Source,
-}
-
-public enum ArtifactTargetKind
-{
-    Project,
-    Skill,
-    Engagement,
-}
 
 /// <summary>External evidence of work — a repo, PR, talk, certification, etc. — linkable to projects, skills, and
 /// engagements. Event-sourced; one stream per artifact, owned by a single <see cref="OwnerPrincipalId"/>.</summary>
@@ -103,10 +75,4 @@ public class Artifact
     }
 
     public void Apply(ArtifactArchived e) => Archived = true;
-}
-
-public sealed class ArtifactSkillLink
-{
-    public Guid SkillId { get; set; }
-    public ArtifactRole Role { get; set; }
 }

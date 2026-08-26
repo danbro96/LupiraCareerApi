@@ -1,24 +1,8 @@
+using LupiraCareerApi.Core.Domain.Engagements.Events;
 using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Domain.Shared;
 
 namespace LupiraCareerApi.Core.Domain.Engagements;
-
-public enum EngagementKind
-{
-    Employment,
-    Study,
-    Hobby,
-    Volunteer,
-    OpenSource,
-}
-
-public class TitleEpoch
-{
-    public Guid TitleId { get; set; }
-    public string Text { get; set; } = "";
-    public DateOnly From { get; set; }
-    public DateOnly? To { get; set; }
-}
 
 /// <summary>An employment / study / volunteer engagement: a time-boxed relationship with an
 /// <see cref="Organization"/>, carrying a history of job titles. Event-sourced; one stream per engagement,

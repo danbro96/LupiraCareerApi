@@ -1,4 +1,5 @@
 using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Engagements.Events;
 using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Domain.Shared;
 using LupiraCareerApi.Core.Dtos;

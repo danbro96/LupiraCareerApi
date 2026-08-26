@@ -1,13 +1,11 @@
-using LupiraCareerApi.Http;
-using Microsoft.AspNetCore.OpenApi;
-using System.Globalization;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json.Serialization;
 using LupiraCareerApi.Auth;
 using LupiraCareerApi.Core.Domain.Shared;
 using LupiraCareerApi.Endpoints;
 using LupiraCareerApi.Handlers;
-using LupiraCareerApi.Health;
+using LupiraCareerApi.Http;
 using LupiraCareerApi.Mcp;
 using Marten;
 using Microsoft.AspNetCore.Authentication;

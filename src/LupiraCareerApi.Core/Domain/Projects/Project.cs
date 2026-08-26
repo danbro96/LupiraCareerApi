@@ -1,22 +1,7 @@
 using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Projects.Events;
 
 namespace LupiraCareerApi.Core.Domain.Projects;
-
-public enum ProjectKind
-{
-    Professional,
-    Personal,
-    OpenSource,
-    Academic,
-}
-
-public enum ProjectStatus
-{
-    Active,
-    Shipped,
-    Shelved,
-    Archived,
-}
 
 /// <summary>A piece of work — optionally under an <see cref="Engagement"/> — with a lifecycle and applied skills.
 /// Event-sourced; one stream per project, owned by a single <see cref="OwnerPrincipalId"/>.</summary>

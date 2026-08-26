@@ -1,5 +1,3 @@
-using LupiraCareerApi.Core.Domain.Shared;
-
 namespace LupiraCareerApi.Core.Domain.Profiles;
 
 /// <summary>

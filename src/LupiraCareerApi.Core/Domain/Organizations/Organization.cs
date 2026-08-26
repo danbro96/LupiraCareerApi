@@ -1,13 +1,5 @@
 namespace LupiraCareerApi.Core.Domain.Organizations;
 
-public enum OrganizationKind
-{
-    Company,
-    School,
-    Nonprofit,
-    Other,
-}
-
 /// <summary>
 /// An employer / institution of record — the career API owns this concept (the calendar API's
 /// <c>ContactGroup{Organization}</c> is a different thing: people you know there). Dedups employers across

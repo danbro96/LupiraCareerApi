@@ -1,5 +1,3 @@
-using LupiraCareerApi.Core.Domain.Profiles;
-
 namespace LupiraCareerApi.Core.Dtos;
 
 /// <summary>The composed public portfolio for one published handle: the profile header plus the published subset of

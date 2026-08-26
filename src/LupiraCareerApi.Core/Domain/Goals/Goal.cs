@@ -1,20 +1,7 @@
+using LupiraCareerApi.Core.Domain.Goals.Events;
 using LupiraCareerApi.Core.Domain.Skills;
 
 namespace LupiraCareerApi.Core.Domain.Goals;
-
-public enum GoalStatus
-{
-    Active,
-    Achieved,
-    Abandoned,
-}
-
-public sealed class GoalProgressEntry
-{
-    public DateTimeOffset RecordedAt { get; set; }
-    public string Note { get; set; } = "";
-    public Guid? LinkedEventId { get; set; }
-}
 
 /// <summary>A skill-development target. Private by design — goals are never exposed on the public portfolio path.
 /// Event-sourced; one stream per goal, owned by a single <see cref="OwnerPrincipalId"/>.</summary>

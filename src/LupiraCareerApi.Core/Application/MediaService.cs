@@ -1,4 +1,5 @@
 using LupiraCareerApi.Core.Domain.Media;
+using LupiraCareerApi.Core.Domain.Media.Events;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;
 using Marten;

@@ -1,15 +1,20 @@
 using JasperFx.Events.Projections;
 using LupiraCareerApi.Core.Domain.Artifacts;
+using LupiraCareerApi.Core.Domain.Artifacts.Events;
 using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Engagements.Events;
 using LupiraCareerApi.Core.Domain.Experiences;
 using LupiraCareerApi.Core.Domain.Goals;
+using LupiraCareerApi.Core.Domain.Goals.Events;
+using LupiraCareerApi.Core.Domain.Identity;
 using LupiraCareerApi.Core.Domain.Media;
+using LupiraCareerApi.Core.Domain.Media.Events;
 using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Domain.Profiles;
 using LupiraCareerApi.Core.Domain.Projects;
-using LupiraCareerApi.Core.Domain.Shared;
+using LupiraCareerApi.Core.Domain.Projects.Events;
 using LupiraCareerApi.Core.Domain.Skills;
-using LupiraCareerApi.Core.Domain.Identity;
+using LupiraCareerApi.Core.Domain.Skills.Events;
 using Marten;
 using Weasel.Core;
 

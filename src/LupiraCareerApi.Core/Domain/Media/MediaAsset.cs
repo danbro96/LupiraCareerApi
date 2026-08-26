@@ -1,20 +1,6 @@
-using LupiraCareerApi.Core.Domain.Projects;
-using LupiraCareerApi.Core.Domain.Skills;
+using LupiraCareerApi.Core.Domain.Media.Events;
 
 namespace LupiraCareerApi.Core.Domain.Media;
-
-public enum MediaRole
-{
-    Hero,
-    Gallery,
-    Thumbnail,
-}
-
-public enum MediaTargetKind
-{
-    Project,
-    Skill,
-}
 
 /// <summary>An image/media asset (blob stored on the shared MinIO; <see cref="BlobRef"/> is the object key)
 /// illustrating projects and skills. Event-sourced; one stream per asset, owned by a single
@@ -83,10 +69,4 @@ public class MediaAsset
     }
 
     public void Apply(MediaArchived e) => Archived = true;
-}
-
-public sealed class ProjectLink
-{
-    public Guid ProjectId { get; set; }
-    public MediaRole Role { get; set; }
 }

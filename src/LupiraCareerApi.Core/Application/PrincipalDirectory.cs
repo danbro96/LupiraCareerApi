@@ -1,5 +1,5 @@
-using LupiraCareerApi.Core.Domain.Shared;
 using LupiraCareerApi.Core.Domain.Identity;
+using LupiraCareerApi.Core.Domain.Shared;
 using Marten;
 using Npgsql;
 

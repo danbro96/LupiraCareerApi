@@ -1,29 +1,7 @@
+using LupiraCareerApi.Core.Domain.Skills.Events;
 using Marten.Events.Aggregation;
 
 namespace LupiraCareerApi.Core.Domain.Skills;
-
-public sealed class SkillTimelineEntry
-{
-    public required string Kind { get; set; }
-    public DateOnly OccurredOn { get; set; }
-    public SkillContextKind? ContextKind { get; set; }
-    public Guid? ContextId { get; set; }
-    public string? ContextLabel { get; set; }
-    public Intensity? Intensity { get; set; }
-    public Maturity? Maturity { get; set; }
-    public Guid? OtherSkillId { get; set; }
-    public string? Note { get; set; }
-}
-
-/// <summary>Inline read model: the chronological edge history of one skill. Single-stream, so it is naturally
-/// owner-scoped — <see cref="OwnerPrincipalId"/> is stamped from <see cref="SkillRegistered"/>.</summary>
-public sealed class SkillTimeline
-{
-    public Guid Id { get; set; }
-    public Guid OwnerPrincipalId { get; set; }
-    public string Name { get; set; } = "";
-    public List<SkillTimelineEntry> Entries { get; set; } = new();
-}
 
 public sealed partial class SkillTimelineProjection : SingleStreamProjection<SkillTimeline, Guid>
 {
