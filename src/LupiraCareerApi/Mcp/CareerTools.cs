@@ -16,59 +16,59 @@ namespace LupiraCareerApi.Mcp;
 [McpServerToolType]
 public sealed class CareerTools
 {
-    [McpServerTool]
+    [McpServerTool(Name = "list_engagements")]
     [Description("List the caller's engagements (employment/study/…).")]
-    public static async Task<IReadOnlyList<EngagementDto>> list_engagements(EngagementService engagements, CurrentUser user) =>
+    public static async Task<IReadOnlyList<EngagementDto>> ListEngagements(EngagementService engagements, CurrentUser user) =>
         Require(await engagements.ListAsync((await user.GetAsync()).Id));
 
-    [McpServerTool]
+    [McpServerTool(Name = "create_engagement")]
     [Description("Create an engagement under one of the caller's organizations.")]
-    public static async Task<EngagementDto> create_engagement(EngagementService engagements, CurrentUser user, CreateEngagementRequest request) =>
+    public static async Task<EngagementDto> CreateEngagement(EngagementService engagements, CurrentUser user, CreateEngagementRequest request) =>
         Require(await engagements.CreateAsync((await user.GetAsync()).Id, request));
 
-    [McpServerTool]
+    [McpServerTool(Name = "list_projects")]
     [Description("List the caller's projects, optionally filtered to one engagement.")]
-    public static async Task<IReadOnlyList<ProjectDto>> list_projects(
+    public static async Task<IReadOnlyList<ProjectDto>> ListProjects(
         ProjectService projects, CurrentUser user,
         [Description("Restrict to projects under this engagement id.")] Guid? engagementId = null) =>
         Require(await projects.ListAsync((await user.GetAsync()).Id, engagementId));
 
-    [McpServerTool]
+    [McpServerTool(Name = "create_project")]
     [Description("Create a project (optionally filed under an engagement).")]
-    public static async Task<ProjectDto> create_project(ProjectService projects, CurrentUser user, CreateProjectRequest request) =>
+    public static async Task<ProjectDto> CreateProject(ProjectService projects, CurrentUser user, CreateProjectRequest request) =>
         Require(await projects.CreateAsync((await user.GetAsync()).Id, request));
 
-    [McpServerTool]
+    [McpServerTool(Name = "list_skills")]
     [Description("List the caller's skills with their current maturity.")]
-    public static async Task<IReadOnlyList<SkillDto>> list_skills(SkillService skills, CurrentUser user) =>
+    public static async Task<IReadOnlyList<SkillDto>> ListSkills(SkillService skills, CurrentUser user) =>
         Require(await skills.ListAsync((await user.GetAsync()).Id));
 
-    [McpServerTool]
+    [McpServerTool(Name = "register_skill")]
     [Description("Register a new skill.")]
-    public static async Task<SkillDto> register_skill(SkillService skills, CurrentUser user, RegisterSkillRequest request) =>
+    public static async Task<SkillDto> RegisterSkill(SkillService skills, CurrentUser user, RegisterSkillRequest request) =>
         Require(await skills.RegisterAsync((await user.GetAsync()).Id, request));
 
-    [McpServerTool]
+    [McpServerTool(Name = "record_skill_application")]
     [Description("Record that the caller applied a skill on a date, in some context (logs a SkillApplied edge).")]
-    public static async Task<SkillDto> record_skill_application(
+    public static async Task<SkillDto> RecordSkillApplication(
         SkillService skills, CurrentUser user,
         [Description("The skill id.")] Guid skillId,
         ApplySkillRequest request) =>
         Require(await skills.ApplyAsync((await user.GetAsync()).Id, skillId, request));
 
-    [McpServerTool]
+    [McpServerTool(Name = "list_organizations")]
     [Description("List the caller's organizations (employers/institutions).")]
-    public static async Task<IReadOnlyList<OrganizationDto>> list_organizations(OrganizationService orgs, CurrentUser user) =>
+    public static async Task<IReadOnlyList<OrganizationDto>> ListOrganizations(OrganizationService orgs, CurrentUser user) =>
         Require(await orgs.ListAsync((await user.GetAsync()).Id));
 
-    [McpServerTool]
+    [McpServerTool(Name = "create_organization")]
     [Description("Create an organization (employer/institution).")]
-    public static async Task<OrganizationDto> create_organization(OrganizationService orgs, CurrentUser user, CreateOrganizationRequest request) =>
+    public static async Task<OrganizationDto> CreateOrganization(OrganizationService orgs, CurrentUser user, CreateOrganizationRequest request) =>
         Require(await orgs.CreateAsync((await user.GetAsync()).Id, request));
 
-    [McpServerTool]
+    [McpServerTool(Name = "get_resume")]
     [Description("Get the caller's full composed résumé (profile + engagements + projects + skills).")]
-    public static async Task<ResumeDto> get_resume(ResumeService resume, CurrentUser user) =>
+    public static async Task<ResumeDto> GetResume(ResumeService resume, CurrentUser user) =>
         Require(await resume.GetResumeAsync((await user.GetAsync()).Id));
 
     /// <summary>Unwraps a service outcome to its value, surfacing non-Ok statuses as an MCP tool error.</summary>
