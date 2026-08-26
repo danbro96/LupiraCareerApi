@@ -1,6 +1,6 @@
 namespace LupiraCareerApi.Domain;
 
-public record SkillRegistered(
+public sealed record SkillRegistered(
     Guid SkillId,
     Guid OwnerPrincipalId,
     string Name,
@@ -8,17 +8,17 @@ public record SkillRegistered(
     IReadOnlyList<string>? Aliases,
     Guid? ParentSkillId);
 
-public record SkillRenamed(Guid SkillId, string NewName);
+public sealed record SkillRenamed(Guid SkillId, string NewName);
 
-public record SkillCategoryChanged(Guid SkillId, SkillCategory NewCategory);
+public sealed record SkillCategoryChanged(Guid SkillId, SkillCategory NewCategory);
 
-public record SkillAliasAdded(Guid SkillId, string Alias);
+public sealed record SkillAliasAdded(Guid SkillId, string Alias);
 
-public record SkillReparented(Guid SkillId, Guid? NewParentSkillId);
+public sealed record SkillReparented(Guid SkillId, Guid? NewParentSkillId);
 
-public record SkillRetired(Guid SkillId);
+public sealed record SkillRetired(Guid SkillId);
 
-public record SkillLearned(
+public sealed record SkillLearned(
     Guid SkillId,
     DateOnly OccurredOn,
     Maturity InitialMaturity,
@@ -26,7 +26,7 @@ public record SkillLearned(
     Evidence? Evidence,
     Location? Location);
 
-public record SkillApplied(
+public sealed record SkillApplied(
     Guid SkillId,
     DateOnly OccurredOn,
     Intensity Intensity,
@@ -34,7 +34,7 @@ public record SkillApplied(
     Evidence? Evidence,
     Location? Location);
 
-public record SkillDeepened(
+public sealed record SkillDeepened(
     Guid SkillId,
     DateOnly OccurredOn,
     Maturity FromMaturity,
@@ -44,7 +44,7 @@ public record SkillDeepened(
     Evidence? Evidence,
     Location? Location);
 
-public record SkillTaught(
+public sealed record SkillTaught(
     Guid SkillId,
     DateOnly OccurredOn,
     string Audience,
@@ -52,7 +52,7 @@ public record SkillTaught(
     Evidence? Evidence,
     Location? Location);
 
-public record SkillReferenced(
+public sealed record SkillReferenced(
     Guid SkillId,
     DateOnly OccurredOn,
     string Note,
@@ -60,7 +60,7 @@ public record SkillReferenced(
     Evidence? Evidence,
     Location? Location);
 
-public record SkillsCombined(
+public sealed record SkillsCombined(
     Guid SkillId,
     Guid OtherSkillId,
     DateOnly OccurredOn,

@@ -1,6 +1,6 @@
 namespace LupiraCareerApi.Domain;
 
-public record ProjectStarted(
+public sealed record ProjectStarted(
     Guid ProjectId,
     Guid OwnerPrincipalId,
     ProjectKind Kind,
@@ -10,22 +10,22 @@ public record ProjectStarted(
     string? Url,
     DateOnly? StartDate);
 
-public record ProjectRenamed(Guid ProjectId, string NewTitle);
+public sealed record ProjectRenamed(Guid ProjectId, string NewTitle);
 
-public record ProjectDescribed(Guid ProjectId, string? Description);
+public sealed record ProjectDescribed(Guid ProjectId, string? Description);
 
-public record ProjectUrlSet(Guid ProjectId, string? Url);
+public sealed record ProjectUrlSet(Guid ProjectId, string? Url);
 
-public record ProjectAttachedToEngagement(Guid ProjectId, Guid EngagementId);
+public sealed record ProjectAttachedToEngagement(Guid ProjectId, Guid EngagementId);
 
-public record ProjectDetachedFromEngagement(Guid ProjectId);
+public sealed record ProjectDetachedFromEngagement(Guid ProjectId);
 
-public record ProjectShipped(Guid ProjectId, DateOnly ShippedOn, string? Outcome);
+public sealed record ProjectShipped(Guid ProjectId, DateOnly ShippedOn, string? Outcome);
 
-public record ProjectShelved(Guid ProjectId, string? Reason);
+public sealed record ProjectShelved(Guid ProjectId, string? Reason);
 
-public record ProjectArchived(Guid ProjectId);
+public sealed record ProjectArchived(Guid ProjectId);
 
-public record ProjectSkillAttached(Guid ProjectId, Guid SkillId, DateOnly? AttachedOn);
+public sealed record ProjectSkillAttached(Guid ProjectId, Guid SkillId, DateOnly? AttachedOn);
 
-public record ProjectSkillDetached(Guid ProjectId, Guid SkillId);
+public sealed record ProjectSkillDetached(Guid ProjectId, Guid SkillId);

@@ -11,4 +11,4 @@ public enum LocationKind
 /// <summary>A lightweight, denormalized location value (city/country) attached to engagements and skill edges.
 /// Distinct from the calendar API's hierarchical Place catalog — the career API only records where work happened,
 /// not logistics.</summary>
-public record Location(LocationKind Kind, string? City, string? Country);
+public sealed record Location(LocationKind Kind, string? City, string? Country);

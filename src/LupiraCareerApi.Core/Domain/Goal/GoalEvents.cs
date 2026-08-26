@@ -1,6 +1,6 @@
 namespace LupiraCareerApi.Domain;
 
-public record GoalSet(
+public sealed record GoalSet(
     Guid GoalId,
     Guid OwnerPrincipalId,
     Guid? SkillId,
@@ -9,25 +9,25 @@ public record GoalSet(
     string Motivation,
     DateTimeOffset OccurredAt);
 
-public record GoalRescoped(
+public sealed record GoalRescoped(
     Guid GoalId,
     Maturity? NewTargetMaturity,
     DateOnly? NewDeadline,
     DateTimeOffset OccurredAt);
 
-public record GoalProgressRecorded(
+public sealed record GoalProgressRecorded(
     Guid GoalId,
     string Note,
     Guid? LinkedEventId,
     DateTimeOffset OccurredAt);
 
-public record GoalAchieved(
+public sealed record GoalAchieved(
     Guid GoalId,
     DateOnly AchievedOn,
     Guid? EvidenceArtifactId,
     DateTimeOffset OccurredAt);
 
-public record GoalAbandoned(
+public sealed record GoalAbandoned(
     Guid GoalId,
     DateOnly AbandonedOn,
     string Reason,

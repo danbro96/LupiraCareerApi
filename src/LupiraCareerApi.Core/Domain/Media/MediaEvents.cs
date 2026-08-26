@@ -1,6 +1,6 @@
 namespace LupiraCareerApi.Domain;
 
-public record MediaRegistered(
+public sealed record MediaRegistered(
     Guid MediaId,
     Guid OwnerPrincipalId,
     string BlobRef,
@@ -11,25 +11,25 @@ public record MediaRegistered(
     string? Caption,
     DateTimeOffset OccurredAt);
 
-public record MediaLinkedToProject(
+public sealed record MediaLinkedToProject(
     Guid MediaId,
     Guid ProjectId,
     MediaRole Role,
     DateTimeOffset OccurredAt);
 
-public record MediaLinkedToSkill(
+public sealed record MediaLinkedToSkill(
     Guid MediaId,
     Guid SkillId,
     string? Note,
     DateTimeOffset OccurredAt);
 
-public record MediaUnlinked(
+public sealed record MediaUnlinked(
     Guid MediaId,
     MediaTargetKind TargetKind,
     Guid TargetId,
     DateTimeOffset OccurredAt);
 
-public record MediaReplaced(
+public sealed record MediaReplaced(
     Guid MediaId,
     string NewBlobRef,
     string NewMimeType,
@@ -37,7 +37,7 @@ public record MediaReplaced(
     int? NewHeight,
     DateTimeOffset OccurredAt);
 
-public record MediaArchived(
+public sealed record MediaArchived(
     Guid MediaId,
     string? Reason,
     DateTimeOffset OccurredAt);
