@@ -14,6 +14,42 @@ public sealed class SkillDto
     public required Maturity CurrentMaturity { get; set; }
 }
 
+/// <summary>A skill's current maturity plus the trajectory that produced it.</summary>
+public sealed class SkillMaturityDto
+{
+    public required Guid Id { get; set; }
+    public required Maturity Current { get; set; }
+    public required IReadOnlyList<SkillMaturityPointDto> Trajectory { get; set; }
+}
+
+public sealed class SkillMaturityPointDto
+{
+    public required DateOnly OccurredOn { get; set; }
+    public required Maturity Maturity { get; set; }
+    public required string? Reason { get; set; }
+}
+
+/// <summary>The chronological edge history of one skill.</summary>
+public sealed class SkillTimelineDto
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required IReadOnlyList<SkillTimelineEntryDto> Entries { get; set; }
+}
+
+public sealed class SkillTimelineEntryDto
+{
+    public required string Kind { get; set; }
+    public required DateOnly OccurredOn { get; set; }
+    public required SkillContextKind? ContextKind { get; set; }
+    public required Guid? ContextId { get; set; }
+    public required string? ContextLabel { get; set; }
+    public required Intensity? Intensity { get; set; }
+    public required Maturity? Maturity { get; set; }
+    public required Guid? OtherSkillId { get; set; }
+    public required string? Note { get; set; }
+}
+
 public sealed class RegisterSkillRequest
 {
     public required string Name { get; set; }

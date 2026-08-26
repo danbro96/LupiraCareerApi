@@ -13,7 +13,13 @@ public sealed class ArtifactDto
     public required bool Archived { get; set; }
     public required IReadOnlyList<Guid> LinkedProjectIds { get; set; }
     public required IReadOnlyList<Guid> LinkedEngagementIds { get; set; }
-    public required IReadOnlyList<ArtifactSkillLink> LinkedSkills { get; set; }
+    public required IReadOnlyList<ArtifactSkillLinkDto> LinkedSkills { get; set; }
+}
+
+public sealed class ArtifactSkillLinkDto
+{
+    public required Guid SkillId { get; set; }
+    public required ArtifactRole Role { get; set; }
 }
 
 public sealed class RegisterArtifactRequest

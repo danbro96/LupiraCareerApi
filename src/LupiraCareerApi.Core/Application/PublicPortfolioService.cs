@@ -82,17 +82,17 @@ public sealed class PublicPortfolioService(
             return r.IsOk && !IsPublished(r.Value!) ? OpResult<SkillDto>.NotFound() : r;
         }, ct);
 
-    public Task<OpResult<SkillTimeline>> GetSkillTimelineAsync(string handle, Guid id, CancellationToken ct = default) =>
+    public Task<OpResult<SkillTimelineDto>> GetSkillTimelineAsync(string handle, Guid id, CancellationToken ct = default) =>
         WithOwnerAsync(handle, async owner =>
             await IsPublishedSkillAsync(owner, id, ct)
                 ? await skills.GetTimelineAsync(owner, id, ct)
-                : OpResult<SkillTimeline>.NotFound(), ct);
+                : OpResult<SkillTimelineDto>.NotFound(), ct);
 
-    public Task<OpResult<SkillMaturity>> GetSkillMaturityAsync(string handle, Guid id, CancellationToken ct = default) =>
+    public Task<OpResult<SkillMaturityDto>> GetSkillMaturityAsync(string handle, Guid id, CancellationToken ct = default) =>
         WithOwnerAsync(handle, async owner =>
             await IsPublishedSkillAsync(owner, id, ct)
                 ? await skills.GetMaturityAsync(owner, id, ct)
-                : OpResult<SkillMaturity>.NotFound(), ct);
+                : OpResult<SkillMaturityDto>.NotFound(), ct);
 
     public Task<OpResult<List<ExperienceItemDto>>> GetExperienceAsync(string handle, CancellationToken ct = default) =>
         WithOwnerAsync(handle, async owner =>

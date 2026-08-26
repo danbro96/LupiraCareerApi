@@ -35,10 +35,10 @@ public sealed class PublicPortfolioHandler(PublicPortfolioService portfolio)
     public async Task<Results<Ok<SkillDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> GetSkillAsync(string handle, Guid id, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await portfolio.GetSkillAsync(handle, id, ct));
 
-    public async Task<Results<Ok<SkillTimeline>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> SkillTimelineAsync(string handle, Guid id, CancellationToken ct) =>
+    public async Task<Results<Ok<SkillTimelineDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> SkillTimelineAsync(string handle, Guid id, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await portfolio.GetSkillTimelineAsync(handle, id, ct));
 
-    public async Task<Results<Ok<SkillMaturity>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> SkillMaturityAsync(string handle, Guid id, CancellationToken ct) =>
+    public async Task<Results<Ok<SkillMaturityDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> SkillMaturityAsync(string handle, Guid id, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await portfolio.GetSkillMaturityAsync(handle, id, ct));
 
     public async Task<Results<Ok<List<ExperienceItemDto>>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> GetExperienceAsync(string handle, CancellationToken ct) =>

@@ -36,9 +36,9 @@ public sealed class SkillsHandler(CurrentUser user, SkillService skills)
     public async Task<Results<Ok<SkillDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> DeepenAsync(Guid id, DeepenSkillRequest body, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await skills.DeepenAsync((await user.GetAsync(ct)).Id, id, body, ct));
 
-    public async Task<Results<Ok<SkillTimeline>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> TimelineAsync(Guid id, CancellationToken ct) =>
+    public async Task<Results<Ok<SkillTimelineDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> TimelineAsync(Guid id, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await skills.GetTimelineAsync((await user.GetAsync(ct)).Id, id, ct));
 
-    public async Task<Results<Ok<SkillMaturity>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> MaturityAsync(Guid id, CancellationToken ct) =>
+    public async Task<Results<Ok<SkillMaturityDto>, NotFound, ProblemHttpResult, UnauthorizedHttpResult>> MaturityAsync(Guid id, CancellationToken ct) =>
         OpResultMap.OkNotFoundProblem(await skills.GetMaturityAsync((await user.GetAsync(ct)).Id, id, ct));
 }

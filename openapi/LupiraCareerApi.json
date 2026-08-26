@@ -1601,7 +1601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SkillTimeline"
+                  "$ref": "#/components/schemas/SkillTimelineDto"
                 }
               }
             }
@@ -1639,7 +1639,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SkillMaturity"
+                  "$ref": "#/components/schemas/SkillMaturityDto"
                 }
               }
             }
@@ -3104,7 +3104,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SkillTimeline"
+                  "$ref": "#/components/schemas/SkillTimelineDto"
                 }
               }
             }
@@ -3150,7 +3150,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SkillMaturity"
+                  "$ref": "#/components/schemas/SkillMaturityDto"
                 }
               }
             }
@@ -3521,7 +3521,7 @@
           "linkedSkills": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArtifactSkillLink"
+              "$ref": "#/components/schemas/ArtifactSkillLinkDto"
             }
           }
         }
@@ -3545,7 +3545,11 @@
           "Source"
         ]
       },
-      "ArtifactSkillLink": {
+      "ArtifactSkillLinkDto": {
+        "required": [
+          "skillId",
+          "role"
+        ],
         "type": "object",
         "properties": {
           "skillId": {
@@ -3989,12 +3993,17 @@
           "progress": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GoalProgressEntry"
+              "$ref": "#/components/schemas/GoalProgressEntryDto"
             }
           }
         }
       },
-      "GoalProgressEntry": {
+      "GoalProgressEntryDto": {
+        "required": [
+          "recordedAt",
+          "note",
+          "linkedEventId"
+        ],
         "type": "object",
         "properties": {
           "recordedAt": {
@@ -4160,7 +4169,7 @@
           "linkedProjects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProjectLink"
+              "$ref": "#/components/schemas/ProjectLinkDto"
             }
           },
           "linkedSkillIds": {
@@ -4393,7 +4402,11 @@
           "Academic"
         ]
       },
-      "ProjectLink": {
+      "ProjectLinkDto": {
+        "required": [
+          "projectId",
+          "role"
+        ],
         "type": "object",
         "properties": {
           "projectId": {
@@ -4791,14 +4804,15 @@
           }
         }
       },
-      "SkillMaturity": {
+      "SkillMaturityDto": {
+        "required": [
+          "id",
+          "current",
+          "trajectory"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "ownerPrincipalId": {
             "type": "string",
             "format": "uuid"
           },
@@ -4808,12 +4822,17 @@
           "trajectory": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SkillMaturityPoint"
+              "$ref": "#/components/schemas/SkillMaturityPointDto"
             }
           }
         }
       },
-      "SkillMaturityPoint": {
+      "SkillMaturityPointDto": {
+        "required": [
+          "occurredOn",
+          "maturity",
+          "reason"
+        ],
         "type": "object",
         "properties": {
           "occurredOn": {
@@ -4831,14 +4850,15 @@
           }
         }
       },
-      "SkillTimeline": {
+      "SkillTimelineDto": {
+        "required": [
+          "id",
+          "name",
+          "entries"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "ownerPrincipalId": {
             "type": "string",
             "format": "uuid"
           },
@@ -4848,14 +4868,22 @@
           "entries": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SkillTimelineEntry"
+              "$ref": "#/components/schemas/SkillTimelineEntryDto"
             }
           }
         }
       },
-      "SkillTimelineEntry": {
+      "SkillTimelineEntryDto": {
         "required": [
-          "kind"
+          "kind",
+          "occurredOn",
+          "contextKind",
+          "contextId",
+          "contextLabel",
+          "intensity",
+          "maturity",
+          "otherSkillId",
+          "note"
         ],
         "type": "object",
         "properties": {

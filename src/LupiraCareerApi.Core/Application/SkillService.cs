@@ -57,16 +57,16 @@ public sealed class SkillService(IDocumentSession session)
     public Task<OpResult<SkillDto>> DeepenAsync(Guid ownerId, Guid id, DeepenSkillRequest r, CancellationToken ct = default) =>
         AppendAsync(ownerId, id, new SkillDeepened(id, r.OccurredOn, r.FromMaturity, r.ToMaturity, r.Note, r.Context, r.Evidence, r.Location), ct);
 
-    public async Task<OpResult<SkillTimeline>> GetTimelineAsync(Guid ownerId, Guid id, CancellationToken ct = default)
+    public async Task<OpResult<SkillTimelineDto>> GetTimelineAsync(Guid ownerId, Guid id, CancellationToken ct = default)
     {
         var t = await session.LoadAsync<SkillTimeline>(id, ct);
-        return t is null || t.OwnerPrincipalId != ownerId ? OpResult<SkillTimeline>.NotFound() : OpResult<SkillTimeline>.Ok(t);
+        return t is null || t.OwnerPrincipalId != ownerId ? OpResult<SkillTimelineDto>.NotFound() : OpResult<SkillTimelineDto>.Ok(t.ToDto());
     }
 
-    public async Task<OpResult<SkillMaturity>> GetMaturityAsync(Guid ownerId, Guid id, CancellationToken ct = default)
+    public async Task<OpResult<SkillMaturityDto>> GetMaturityAsync(Guid ownerId, Guid id, CancellationToken ct = default)
     {
         var m = await session.LoadAsync<SkillMaturity>(id, ct);
-        return m is null || m.OwnerPrincipalId != ownerId ? OpResult<SkillMaturity>.NotFound() : OpResult<SkillMaturity>.Ok(m);
+        return m is null || m.OwnerPrincipalId != ownerId ? OpResult<SkillMaturityDto>.NotFound() : OpResult<SkillMaturityDto>.Ok(m.ToDto());
     }
 
     private async Task<OpResult<SkillDto>> AppendAsync(Guid ownerId, Guid id, object @event, CancellationToken ct)

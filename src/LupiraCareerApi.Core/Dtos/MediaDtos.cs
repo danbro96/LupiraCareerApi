@@ -12,8 +12,14 @@ public sealed class MediaDto
     public required string AltText { get; set; }
     public string? Caption { get; set; }
     public required bool Archived { get; set; }
-    public required IReadOnlyList<ProjectLink> LinkedProjects { get; set; }
+    public required IReadOnlyList<ProjectLinkDto> LinkedProjects { get; set; }
     public required IReadOnlyList<Guid> LinkedSkillIds { get; set; }
+}
+
+public sealed class ProjectLinkDto
+{
+    public required Guid ProjectId { get; set; }
+    public required MediaRole Role { get; set; }
 }
 
 public sealed class RegisterMediaRequest

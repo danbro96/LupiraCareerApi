@@ -60,7 +60,7 @@ public static class CareerMappers
         ResolvedAt = g.ResolvedAt,
         ResolutionReason = g.ResolutionReason,
         EvidenceArtifactId = g.EvidenceArtifactId,
-        Progress = [.. g.Progress],
+        Progress = [.. g.Progress.Select(ToDto)],
     };
 
     public static ArtifactDto ToDto(this Artifact a) => new()
@@ -74,7 +74,7 @@ public static class CareerMappers
         Archived = a.Archived,
         LinkedProjectIds = [.. a.LinkedProjectIds],
         LinkedEngagementIds = [.. a.LinkedEngagementIds],
-        LinkedSkills = [.. a.LinkedSkills],
+        LinkedSkills = [.. a.LinkedSkills.Select(ToDto)],
     };
 
     public static MediaDto ToDto(this MediaAsset m) => new()
@@ -87,7 +87,7 @@ public static class CareerMappers
         AltText = m.AltText,
         Caption = m.Caption,
         Archived = m.Archived,
-        LinkedProjects = [.. m.LinkedProjects],
+        LinkedProjects = [.. m.LinkedProjects.Select(ToDto)],
         LinkedSkillIds = [.. m.LinkedSkillIds],
     };
 
@@ -112,5 +112,58 @@ public static class CareerMappers
         WebsiteUrl = p.WebsiteUrl,
         PublicHandle = p.PublicHandle,
         IsPublished = p.IsPublished,
+    };
+
+    public static GoalProgressEntryDto ToDto(this GoalProgressEntry e) => new()
+    {
+        RecordedAt = e.RecordedAt,
+        Note = e.Note,
+        LinkedEventId = e.LinkedEventId,
+    };
+
+    public static ArtifactSkillLinkDto ToDto(this ArtifactSkillLink l) => new()
+    {
+        SkillId = l.SkillId,
+        Role = l.Role,
+    };
+
+    public static ProjectLinkDto ToDto(this ProjectLink l) => new()
+    {
+        ProjectId = l.ProjectId,
+        Role = l.Role,
+    };
+
+    public static SkillMaturityDto ToDto(this SkillMaturity m) => new()
+    {
+        Id = m.Id,
+        Current = m.Current,
+        Trajectory = [.. m.Trajectory.Select(ToDto)],
+    };
+
+    public static SkillMaturityPointDto ToDto(this SkillMaturityPoint p) => new()
+    {
+        OccurredOn = p.OccurredOn,
+        Maturity = p.Maturity,
+        Reason = p.Reason,
+    };
+
+    public static SkillTimelineDto ToDto(this SkillTimeline t) => new()
+    {
+        Id = t.Id,
+        Name = t.Name,
+        Entries = [.. t.Entries.Select(ToDto)],
+    };
+
+    public static SkillTimelineEntryDto ToDto(this SkillTimelineEntry e) => new()
+    {
+        Kind = e.Kind,
+        OccurredOn = e.OccurredOn,
+        ContextKind = e.ContextKind,
+        ContextId = e.ContextId,
+        ContextLabel = e.ContextLabel,
+        Intensity = e.Intensity,
+        Maturity = e.Maturity,
+        OtherSkillId = e.OtherSkillId,
+        Note = e.Note,
     };
 }

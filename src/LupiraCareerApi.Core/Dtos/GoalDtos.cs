@@ -13,7 +13,14 @@ public sealed class GoalDto
     public DateTimeOffset? ResolvedAt { get; set; }
     public string? ResolutionReason { get; set; }
     public Guid? EvidenceArtifactId { get; set; }
-    public required IReadOnlyList<GoalProgressEntry> Progress { get; set; }
+    public required IReadOnlyList<GoalProgressEntryDto> Progress { get; set; }
+}
+
+public sealed class GoalProgressEntryDto
+{
+    public required DateTimeOffset RecordedAt { get; set; }
+    public required string Note { get; set; }
+    public required Guid? LinkedEventId { get; set; }
 }
 
 public sealed class SetGoalRequest
