@@ -12,6 +12,7 @@
           "Me"
         ],
         "summary": "The caller's resolved local identity (JIT-provisioned on first login).",
+        "operationId": "GetMe",
         "responses": {
           "200": {
             "description": "OK",
@@ -57,6 +58,7 @@
           "Resume"
         ],
         "summary": "The caller's full composed résumé (profile + engagements + projects + skills).",
+        "operationId": "GetResume",
         "responses": {
           "200": {
             "description": "OK",
@@ -102,6 +104,7 @@
           "Resume"
         ],
         "summary": "The caller's unified experience timeline (engagements + projects).",
+        "operationId": "GetExperience",
         "responses": {
           "200": {
             "description": "OK",
@@ -150,6 +153,7 @@
           "Profile"
         ],
         "summary": "The caller's profile (an empty shell if none exists yet).",
+        "operationId": "GetProfile",
         "responses": {
           "200": {
             "description": "OK",
@@ -193,6 +197,7 @@
           "Profile"
         ],
         "summary": "Create or replace the caller's profile.",
+        "operationId": "UpsertProfile",
         "requestBody": {
           "content": {
             "application/json": {
@@ -247,6 +252,7 @@
         "tags": [
           "Organizations"
         ],
+        "operationId": "ListOrganizations",
         "responses": {
           "200": {
             "description": "OK",
@@ -292,6 +298,7 @@
         "tags": [
           "Organizations"
         ],
+        "operationId": "CreateOrganization",
         "requestBody": {
           "content": {
             "application/json": {
@@ -346,6 +353,7 @@
         "tags": [
           "Organizations"
         ],
+        "operationId": "GetOrganization",
         "parameters": [
           {
             "name": "id",
@@ -409,6 +417,7 @@
         "tags": [
           "Organizations"
         ],
+        "operationId": "UpdateOrganization",
         "parameters": [
           {
             "name": "id",
@@ -482,6 +491,7 @@
         "tags": [
           "Organizations"
         ],
+        "operationId": "DeleteOrganization",
         "parameters": [
           {
             "name": "id",
@@ -540,6 +550,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "ListEngagements",
         "responses": {
           "200": {
             "description": "OK",
@@ -585,6 +596,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "CreateEngagement",
         "requestBody": {
           "content": {
             "application/json": {
@@ -639,6 +651,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "GetEngagement",
         "parameters": [
           {
             "name": "id",
@@ -702,6 +715,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "UpdateEngagement",
         "parameters": [
           {
             "name": "id",
@@ -777,6 +791,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "AssumeEngagementTitle",
         "parameters": [
           {
             "name": "id",
@@ -852,6 +867,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "UpdateEngagementTitle",
         "parameters": [
           {
             "name": "id",
@@ -936,6 +952,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "AttachEngagementSkill",
         "parameters": [
           {
             "name": "id",
@@ -1016,6 +1033,7 @@
         "tags": [
           "Engagements"
         ],
+        "operationId": "DetachEngagementSkill",
         "parameters": [
           {
             "name": "id",
@@ -1090,6 +1108,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ListProjects",
         "parameters": [
           {
             "name": "engagementId",
@@ -1145,6 +1164,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "CreateProject",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1199,6 +1219,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "GetProject",
         "parameters": [
           {
             "name": "id",
@@ -1262,6 +1283,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "UpdateProject",
         "parameters": [
           {
             "name": "id",
@@ -1337,6 +1359,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ShipProject",
         "parameters": [
           {
             "name": "id",
@@ -1412,6 +1435,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ShelveProject",
         "parameters": [
           {
             "name": "id",
@@ -1484,6 +1508,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ArchiveProject",
         "parameters": [
           {
             "name": "id",
@@ -1549,6 +1574,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "AttachProjectEngagement",
         "parameters": [
           {
             "name": "id",
@@ -1622,6 +1648,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "DetachProjectEngagement",
         "parameters": [
           {
             "name": "id",
@@ -1687,6 +1714,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "AttachProjectSkill",
         "parameters": [
           {
             "name": "id",
@@ -1767,6 +1795,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "DetachProjectSkill",
         "parameters": [
           {
             "name": "id",
@@ -1841,6 +1870,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ListProjectArtifacts",
         "parameters": [
           {
             "name": "id",
@@ -1899,6 +1929,7 @@
         "tags": [
           "Projects"
         ],
+        "operationId": "ListProjectMedia",
         "parameters": [
           {
             "name": "id",
@@ -1957,6 +1988,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "ListSkills",
         "responses": {
           "200": {
             "description": "OK",
@@ -2002,6 +2034,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "RegisterSkill",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2056,6 +2089,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "GetSkill",
         "parameters": [
           {
             "name": "id",
@@ -2119,6 +2153,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "UpdateSkill",
         "parameters": [
           {
             "name": "id",
@@ -2194,6 +2229,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "AddSkillAlias",
         "parameters": [
           {
             "name": "id",
@@ -2269,6 +2305,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "RetireSkill",
         "parameters": [
           {
             "name": "id",
@@ -2334,6 +2371,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "LearnSkill",
         "parameters": [
           {
             "name": "id",
@@ -2409,6 +2447,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "ApplySkill",
         "parameters": [
           {
             "name": "id",
@@ -2484,6 +2523,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "DeepenSkill",
         "parameters": [
           {
             "name": "id",
@@ -2559,6 +2599,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "GetSkillTimeline",
         "parameters": [
           {
             "name": "id",
@@ -2624,6 +2665,7 @@
         "tags": [
           "Skills"
         ],
+        "operationId": "GetSkillMaturity",
         "parameters": [
           {
             "name": "id",
@@ -2689,6 +2731,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "ListGoals",
         "responses": {
           "200": {
             "description": "OK",
@@ -2734,6 +2777,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "CreateGoal",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2788,6 +2832,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "GetGoal",
         "parameters": [
           {
             "name": "id",
@@ -2851,6 +2896,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "RescopeGoal",
         "parameters": [
           {
             "name": "id",
@@ -2926,6 +2972,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "RecordGoalProgress",
         "parameters": [
           {
             "name": "id",
@@ -3001,6 +3048,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "AchieveGoal",
         "parameters": [
           {
             "name": "id",
@@ -3076,6 +3124,7 @@
         "tags": [
           "Goals"
         ],
+        "operationId": "AbandonGoal",
         "parameters": [
           {
             "name": "id",
@@ -3151,6 +3200,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "ListArtifacts",
         "responses": {
           "200": {
             "description": "OK",
@@ -3196,6 +3246,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "RegisterArtifact",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3250,6 +3301,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "GetArtifact",
         "parameters": [
           {
             "name": "id",
@@ -3313,6 +3365,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "UpdateArtifact",
         "parameters": [
           {
             "name": "id",
@@ -3386,6 +3439,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "ArchiveArtifact",
         "parameters": [
           {
             "name": "id",
@@ -3451,6 +3505,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "LinkArtifactToProject",
         "parameters": [
           {
             "name": "id",
@@ -3523,6 +3578,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "UnlinkArtifactFromProject",
         "parameters": [
           {
             "name": "id",
@@ -3597,6 +3653,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "LinkArtifactToSkill",
         "parameters": [
           {
             "name": "id",
@@ -3679,6 +3736,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "UnlinkArtifactFromSkill",
         "parameters": [
           {
             "name": "id",
@@ -3753,6 +3811,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "LinkArtifactToEngagement",
         "parameters": [
           {
             "name": "id",
@@ -3825,6 +3884,7 @@
         "tags": [
           "Artifacts"
         ],
+        "operationId": "UnlinkArtifactFromEngagement",
         "parameters": [
           {
             "name": "id",
@@ -3899,6 +3959,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "ListMedia",
         "responses": {
           "200": {
             "description": "OK",
@@ -3944,6 +4005,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "RegisterMedia",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3998,6 +4060,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "GetMedia",
         "parameters": [
           {
             "name": "id",
@@ -4061,6 +4124,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "ArchiveMedia",
         "parameters": [
           {
             "name": "id",
@@ -4126,6 +4190,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "LinkMediaToProject",
         "parameters": [
           {
             "name": "id",
@@ -4208,6 +4273,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "UnlinkMediaFromProject",
         "parameters": [
           {
             "name": "id",
@@ -4282,6 +4348,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "LinkMediaToSkill",
         "parameters": [
           {
             "name": "id",
@@ -4361,6 +4428,7 @@
         "tags": [
           "Media"
         ],
+        "operationId": "UnlinkMediaFromSkill",
         "parameters": [
           {
             "name": "id",
@@ -4436,6 +4504,7 @@
           "Public"
         ],
         "summary": "A published portfolio (profile + engagements + projects + skills + experience + media + artifacts), filtered to public items.",
+        "operationId": "GetPublicPortfolio",
         "parameters": [
           {
             "name": "handle",
@@ -4500,6 +4569,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicProfile",
         "parameters": [
           {
             "name": "handle",
@@ -4564,6 +4634,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "ListPublicEngagements",
         "parameters": [
           {
             "name": "handle",
@@ -4631,6 +4702,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicEngagement",
         "parameters": [
           {
             "name": "handle",
@@ -4704,6 +4776,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "ListPublicProjects",
         "parameters": [
           {
             "name": "handle",
@@ -4771,6 +4844,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicProject",
         "parameters": [
           {
             "name": "handle",
@@ -4844,6 +4918,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "ListPublicSkills",
         "parameters": [
           {
             "name": "handle",
@@ -4911,6 +4986,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicSkill",
         "parameters": [
           {
             "name": "handle",
@@ -4984,6 +5060,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicSkillTimeline",
         "parameters": [
           {
             "name": "handle",
@@ -5057,6 +5134,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicSkillMaturity",
         "parameters": [
           {
             "name": "handle",
@@ -5130,6 +5208,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicExperience",
         "parameters": [
           {
             "name": "handle",
@@ -5197,6 +5276,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "ListPublicMedia",
         "parameters": [
           {
             "name": "handle",
@@ -5264,6 +5344,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicMedia",
         "parameters": [
           {
             "name": "handle",
@@ -5337,6 +5418,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "ListPublicArtifacts",
         "parameters": [
           {
             "name": "handle",
@@ -5404,6 +5486,7 @@
         "tags": [
           "Public"
         ],
+        "operationId": "GetPublicArtifact",
         "parameters": [
           {
             "name": "handle",

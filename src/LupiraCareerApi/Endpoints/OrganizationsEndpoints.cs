@@ -9,11 +9,16 @@ public static class OrganizationsEndpoints
     {
         var g = app.MapGroup("/organizations").RequireAuthorization("ApiPolicy").WithTags("Organizations");
 
-        g.MapGet("", (OrganizationsHandler h, CancellationToken ct) => h.ListAsync(ct));
-        g.MapPost("", (OrganizationsHandler h, CreateOrganizationRequest body, CancellationToken ct) => h.CreateAsync(body, ct));
-        g.MapGet("{id:guid}", (OrganizationsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct));
-        g.MapPatch("{id:guid}", (OrganizationsHandler h, Guid id, UpdateOrganizationRequest body, CancellationToken ct) => h.UpdateAsync(id, body, ct));
-        g.MapDelete("{id:guid}", (OrganizationsHandler h, Guid id, CancellationToken ct) => h.DeleteAsync(id, ct));
+        g.MapGet("", (OrganizationsHandler h, CancellationToken ct) => h.ListAsync(ct))
+            .WithName("ListOrganizations");
+        g.MapPost("", (OrganizationsHandler h, CreateOrganizationRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
+            .WithName("CreateOrganization");
+        g.MapGet("{id:guid}", (OrganizationsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
+            .WithName("GetOrganization");
+        g.MapPatch("{id:guid}", (OrganizationsHandler h, Guid id, UpdateOrganizationRequest body, CancellationToken ct) => h.UpdateAsync(id, body, ct))
+            .WithName("UpdateOrganization");
+        g.MapDelete("{id:guid}", (OrganizationsHandler h, Guid id, CancellationToken ct) => h.DeleteAsync(id, ct))
+            .WithName("DeleteOrganization");
 
         return app;
     }

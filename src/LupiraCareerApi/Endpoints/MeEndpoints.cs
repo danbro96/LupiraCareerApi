@@ -9,7 +9,8 @@ public static class MeEndpoints
         app.MapGet("/me", (MeHandler h, CancellationToken ct) => h.GetAsync(ct))
             .RequireAuthorization("ApiPolicy")
             .WithTags("Me")
-            .WithSummary("The caller's resolved local identity (JIT-provisioned on first login).");
+            .WithSummary("The caller's resolved local identity (JIT-provisioned on first login).")
+            .WithName("GetMe");
         return app;
     }
 }

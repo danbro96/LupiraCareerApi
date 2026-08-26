@@ -9,12 +9,14 @@ public static class ResumeEndpoints
         app.MapGet("/resume", (ResumeHandler h, CancellationToken ct) => h.GetResumeAsync(ct))
             .RequireAuthorization("ApiPolicy")
             .WithTags("Resume")
-            .WithSummary("The caller's full composed résumé (profile + engagements + projects + skills).");
+            .WithSummary("The caller's full composed résumé (profile + engagements + projects + skills).")
+            .WithName("GetResume");
 
         app.MapGet("/experience", (ResumeHandler h, CancellationToken ct) => h.GetExperienceAsync(ct))
             .RequireAuthorization("ApiPolicy")
             .WithTags("Resume")
-            .WithSummary("The caller's unified experience timeline (engagements + projects).");
+            .WithSummary("The caller's unified experience timeline (engagements + projects).")
+            .WithName("GetExperience");
 
         return app;
     }
