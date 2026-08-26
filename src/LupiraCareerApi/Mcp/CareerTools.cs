@@ -43,9 +43,9 @@ public sealed class CareerTools
     public static async Task<IReadOnlyList<SkillDto>> ListSkills(SkillService skills, CurrentUser user) =>
         Require(await skills.ListAsync((await user.GetAsync()).Id));
 
-    [McpServerTool(Name = "register_skill")]
+    [McpServerTool(Name = "create_skill")]
     [Description("Register a new skill.")]
-    public static async Task<SkillDto> RegisterSkill(SkillService skills, CurrentUser user, RegisterSkillRequest request) =>
+    public static async Task<SkillDto> CreateSkill(SkillService skills, CurrentUser user, RegisterSkillRequest request) =>
         Require(await skills.RegisterAsync((await user.GetAsync()).Id, request));
 
     [McpServerTool(Name = "record_skill_application")]
