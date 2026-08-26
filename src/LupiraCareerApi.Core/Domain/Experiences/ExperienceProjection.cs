@@ -44,6 +44,7 @@ public sealed partial class ExperienceProjection : MultiStreamProjection<Experie
     };
 
     public void Apply(EngagementEnded e, ExperienceRow row) => row.EndDate = e.EndDate;
+
     public void Apply(EngagementRelocated e, ExperienceRow row) => row.Location = e.NewLocation;
 
     public void Apply(EngagementSkillAttached e, ExperienceRow row)

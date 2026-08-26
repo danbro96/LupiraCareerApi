@@ -150,8 +150,11 @@ public sealed class PublicPortfolioService(
     }
 
     private static bool IsPublished(ProjectDto p) => p.Status != ProjectStatus.Archived;
+
     private static bool IsPublished(SkillDto s) => !s.Retired;
+
     private static bool IsPublished(MediaDto m) => !m.Archived;
+
     private static bool IsPublished(ArtifactDto a) => !a.Archived;
 
     private static bool IsPublishedExperience(ExperienceItemDto x, HashSet<Guid> publishedProjectIds) =>

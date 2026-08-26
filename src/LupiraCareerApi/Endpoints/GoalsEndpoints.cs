@@ -9,9 +9,9 @@ public static class GoalsEndpoints
     {
         var g = app.MapGroup("/goals").RequireAuthorization("ApiPolicy").WithTags("Goals");
 
-        g.MapGet("", (GoalsHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (GoalsHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListGoals");
-        g.MapPost("", (GoalsHandler h, SetGoalRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
+        g.MapPost(string.Empty, (GoalsHandler h, SetGoalRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
             .WithName("CreateGoal");
         g.MapGet("{id:guid}", (GoalsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetGoal");

@@ -8,19 +8,27 @@ namespace LupiraCareerApi.Core.Domain.Media;
 public class MediaAsset
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
-    public string BlobRef { get; set; } = "";
-    public string MimeType { get; set; } = "";
+    public string BlobRef { get; set; } = string.Empty;
+
+    public string MimeType { get; set; } = string.Empty;
+
     public int? Width { get; set; }
+
     public int? Height { get; set; }
-    public string AltText { get; set; } = "";
+
+    public string AltText { get; set; } = string.Empty;
+
     public string? Caption { get; set; }
+
     public bool Archived { get; set; }
 
     public List<ProjectLink> LinkedProjects { get; set; } = new();
+
     public List<Guid> LinkedSkillIds { get; set; } = new();
 
     public void Apply(MediaRegistered e)

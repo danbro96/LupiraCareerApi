@@ -10,14 +10,21 @@ namespace LupiraCareerApi.Core.Domain.Profiles;
 public sealed class Profile
 {
     public Guid Id { get; set; }
+
     public Guid OwnerPrincipalId { get; set; }
 
-    public string FullName { get; set; } = "";
+    public string FullName { get; set; } = string.Empty;
+
     public string? Tagline { get; set; }
+
     public string? Bio { get; set; }
+
     public string? Location { get; set; }
+
     public string? GithubUrl { get; set; }
+
     public string? LinkedInUrl { get; set; }
+
     public string? WebsiteUrl { get; set; }
 
     /// <summary>Stable, unique, lowercase slug this portfolio is served under (<c>/public/{handle}</c>). Null = not addressable publicly.</summary>

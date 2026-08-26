@@ -6,10 +6,16 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class PublicPortfolioDto
 {
     public required ProfileDto Profile { get; set; }
+
     public required IReadOnlyList<EngagementDto> Engagements { get; set; }
+
     public required IReadOnlyList<ProjectDto> Projects { get; set; }
+
     public required IReadOnlyList<SkillDto> Skills { get; set; }
+
     public required IReadOnlyList<ExperienceItemDto> Experience { get; set; }
+
     public required IReadOnlyList<MediaDto> Media { get; set; }
+
     public required IReadOnlyList<ArtifactDto> Artifacts { get; set; }
 }

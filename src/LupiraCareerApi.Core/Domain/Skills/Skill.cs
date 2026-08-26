@@ -7,17 +7,23 @@ namespace LupiraCareerApi.Core.Domain.Skills;
 public class Skill
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
-    public string Name { get; set; } = "";
+    public string Name { get; set; } = string.Empty;
+
     public SkillCategory Category { get; set; }
+
     public List<string> Aliases { get; set; } = new();
+
     public Guid? ParentSkillId { get; set; }
+
     public bool Retired { get; set; }
 
     public DateOnly? FirstLearnedOn { get; set; }
+
     public Maturity CurrentMaturity { get; set; } = Maturity.Aware;
 
     public void Apply(SkillRegistered e)
@@ -31,6 +37,7 @@ public class Skill
     }
 
     public void Apply(SkillRenamed e) => Name = e.NewName;
+
     public void Apply(SkillCategoryChanged e) => Category = e.NewCategory;
 
     public void Apply(SkillAliasAdded e)
@@ -40,6 +47,7 @@ public class Skill
     }
 
     public void Apply(SkillReparented e) => ParentSkillId = e.NewParentSkillId;
+
     public void Apply(SkillRetired e) => Retired = true;
 
     public void Apply(SkillLearned e)

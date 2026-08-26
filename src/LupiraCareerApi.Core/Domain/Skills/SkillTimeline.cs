@@ -7,7 +7,10 @@ namespace LupiraCareerApi.Core.Domain.Skills;
 public sealed class SkillTimeline
 {
     public Guid Id { get; set; }
+
     public Guid OwnerPrincipalId { get; set; }
-    public string Name { get; set; } = "";
+
+    public string Name { get; set; } = string.Empty;
+
     public List<SkillTimelineEntry> Entries { get; set; } = new();
 }

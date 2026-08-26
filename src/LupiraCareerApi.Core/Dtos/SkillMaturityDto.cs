@@ -6,6 +6,8 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class SkillMaturityDto
 {
     public required Guid Id { get; set; }
+
     public required Maturity Current { get; set; }
+
     public required IReadOnlyList<SkillMaturityPointDto> Trajectory { get; set; }
 }

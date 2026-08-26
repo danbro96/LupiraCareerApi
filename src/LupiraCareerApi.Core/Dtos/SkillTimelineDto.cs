@@ -4,6 +4,8 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class SkillTimelineDto
 {
     public required Guid Id { get; set; }
+
     public required string Name { get; set; }
+
     public required IReadOnlyList<SkillTimelineEntryDto> Entries { get; set; }
 }

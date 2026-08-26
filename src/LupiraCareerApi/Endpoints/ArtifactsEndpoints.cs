@@ -9,9 +9,9 @@ public static class ArtifactsEndpoints
     {
         var g = app.MapGroup("/artifacts").RequireAuthorization("ApiPolicy").WithTags("Artifacts");
 
-        g.MapGet("", (ArtifactsHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (ArtifactsHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListArtifacts");
-        g.MapPost("", (ArtifactsHandler h, RegisterArtifactRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
+        g.MapPost(string.Empty, (ArtifactsHandler h, RegisterArtifactRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
             .WithName("RegisterArtifact");
         g.MapGet("{id:guid}", (ArtifactsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetArtifact");

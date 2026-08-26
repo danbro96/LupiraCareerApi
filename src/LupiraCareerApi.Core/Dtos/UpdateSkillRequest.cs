@@ -6,6 +6,8 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class UpdateSkillRequest
 {
     public string? Name { get; set; }
+
     public SkillCategory? Category { get; set; }
+
     public Guid? ParentSkillId { get; set; }
 }

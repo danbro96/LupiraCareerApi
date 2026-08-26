@@ -42,5 +42,5 @@ public sealed class ProfileService(IDocumentSession session)
         return OpResult<ProfileDto>.Ok(p.ToDto());
     }
 
-    private static ProfileDto Empty(Guid ownerId) => new() { OwnerPrincipalId = ownerId, FullName = "" };
+    private static ProfileDto Empty(Guid ownerId) => new() { OwnerPrincipalId = ownerId, FullName = string.Empty };
 }

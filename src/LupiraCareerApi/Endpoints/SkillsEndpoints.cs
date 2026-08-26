@@ -9,9 +9,9 @@ public static class SkillsEndpoints
     {
         var g = app.MapGroup("/skills").RequireAuthorization("ApiPolicy").WithTags("Skills");
 
-        g.MapGet("", (SkillsHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (SkillsHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListSkills");
-        g.MapPost("", (SkillsHandler h, RegisterSkillRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
+        g.MapPost(string.Empty, (SkillsHandler h, RegisterSkillRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
             .WithName("RegisterSkill");
         g.MapGet("{id:guid}", (SkillsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetSkill");

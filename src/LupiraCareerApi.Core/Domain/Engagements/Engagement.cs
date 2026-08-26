@@ -10,17 +10,25 @@ namespace LupiraCareerApi.Core.Domain.Engagements;
 public class Engagement
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
     public EngagementKind Kind { get; set; }
+
     public Guid OrganizationId { get; set; }
+
     public DateOnly Start { get; set; }
+
     public DateOnly? End { get; set; }
+
     public Location? Location { get; set; }
+
     public string? Summary { get; set; }
+
     public List<TitleEpoch> Titles { get; set; } = new();
+
     public List<Guid> SkillIds { get; set; } = new();
 
     public string? CurrentTitle =>
@@ -39,8 +47,11 @@ public class Engagement
     }
 
     public void Apply(EngagementEnded e) => End = e.EndDate;
+
     public void Apply(EngagementSummaryRevised e) => Summary = e.Summary;
+
     public void Apply(EngagementRelocated e) => Location = e.NewLocation;
+
     public void Apply(EngagementKindReclassified e) => Kind = e.NewKind;
 
     public void Apply(TitleAssumed e)

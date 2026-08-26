@@ -7,19 +7,27 @@ namespace LupiraCareerApi.Core.Domain.Artifacts;
 public class Artifact
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
     public ArtifactKind Kind { get; set; }
-    public string Url { get; set; } = "";
-    public string Title { get; set; } = "";
+
+    public string Url { get; set; } = string.Empty;
+
+    public string Title { get; set; } = string.Empty;
+
     public string? Description { get; set; }
+
     public DateOnly? ProducedOn { get; set; }
+
     public bool Archived { get; set; }
 
     public List<Guid> LinkedProjectIds { get; set; } = new();
+
     public List<Guid> LinkedEngagementIds { get; set; } = new();
+
     public List<ArtifactSkillLink> LinkedSkills { get; set; } = new();
 
     public void Apply(ArtifactRegistered e)

@@ -9,9 +9,9 @@ public static class EngagementsEndpoints
     {
         var g = app.MapGroup("/engagements").RequireAuthorization("ApiPolicy").WithTags("Engagements");
 
-        g.MapGet("", (EngagementsHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (EngagementsHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListEngagements");
-        g.MapPost("", (EngagementsHandler h, CreateEngagementRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
+        g.MapPost(string.Empty, (EngagementsHandler h, CreateEngagementRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
             .WithName("CreateEngagement");
         g.MapGet("{id:guid}", (EngagementsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetEngagement");

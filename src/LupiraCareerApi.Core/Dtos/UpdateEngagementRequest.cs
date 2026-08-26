@@ -8,8 +8,12 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class UpdateEngagementRequest
 {
     public string? Summary { get; set; }
+
     public EngagementKind? Kind { get; set; }
+
     public Location? Location { get; set; }
+
     public DateOnly? End { get; set; }
+
     public string? EndReason { get; set; }
 }

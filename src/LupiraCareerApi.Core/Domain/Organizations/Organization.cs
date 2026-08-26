@@ -9,10 +9,14 @@ namespace LupiraCareerApi.Core.Domain.Organizations;
 public sealed class Organization
 {
     public Guid Id { get; set; }
+
     public Guid OwnerPrincipalId { get; set; }
 
-    public string Name { get; set; } = "";
+    public string Name { get; set; } = string.Empty;
+
     public OrganizationKind Kind { get; set; } = OrganizationKind.Company;
+
     public string? Url { get; set; }
+
     public Guid? CalContactGroupRef { get; set; }
 }

@@ -7,7 +7,10 @@ namespace LupiraCareerApi.Core.Domain.Skills;
 public sealed class SkillMaturity
 {
     public Guid Id { get; set; }
+
     public Guid OwnerPrincipalId { get; set; }
+
     public Maturity Current { get; set; } = Maturity.Aware;
+
     public List<SkillMaturityPoint> Trajectory { get; set; } = new();
 }

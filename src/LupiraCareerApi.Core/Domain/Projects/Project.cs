@@ -8,19 +8,29 @@ namespace LupiraCareerApi.Core.Domain.Projects;
 public class Project
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
     public ProjectKind Kind { get; set; }
-    public string Title { get; set; } = "";
+
+    public string Title { get; set; } = string.Empty;
+
     public string? Description { get; set; }
+
     public string? Url { get; set; }
+
     public Guid? EngagementId { get; set; }
+
     public DateOnly? Start { get; set; }
+
     public DateOnly? End { get; set; }
+
     public string? Outcome { get; set; }
+
     public ProjectStatus Status { get; set; } = ProjectStatus.Active;
+
     public List<Guid> SkillIds { get; set; } = new();
 
     public void Apply(ProjectStarted e)
@@ -36,9 +46,13 @@ public class Project
     }
 
     public void Apply(ProjectRenamed e) => Title = e.NewTitle;
+
     public void Apply(ProjectDescribed e) => Description = e.Description;
+
     public void Apply(ProjectUrlSet e) => Url = e.Url;
+
     public void Apply(ProjectAttachedToEngagement e) => EngagementId = e.EngagementId;
+
     public void Apply(ProjectDetachedFromEngagement e) => EngagementId = null;
 
     public void Apply(ProjectShipped e)

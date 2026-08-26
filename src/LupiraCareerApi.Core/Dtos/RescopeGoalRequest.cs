@@ -6,5 +6,6 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class RescopeGoalRequest
 {
     public Maturity? TargetMaturity { get; set; }
+
     public DateOnly? Deadline { get; set; }
 }

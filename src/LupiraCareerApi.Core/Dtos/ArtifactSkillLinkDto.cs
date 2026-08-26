@@ -5,5 +5,6 @@ namespace LupiraCareerApi.Core.Dtos;
 public sealed class ArtifactSkillLinkDto
 {
     public required Guid SkillId { get; set; }
+
     public required ArtifactRole Role { get; set; }
 }

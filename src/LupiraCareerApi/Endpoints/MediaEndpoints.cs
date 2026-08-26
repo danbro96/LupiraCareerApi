@@ -9,9 +9,9 @@ public static class MediaEndpoints
     {
         var g = app.MapGroup("/media").RequireAuthorization("ApiPolicy").WithTags("Media");
 
-        g.MapGet("", (MediaHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (MediaHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListMedia");
-        g.MapPost("", (MediaHandler h, RegisterMediaRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
+        g.MapPost(string.Empty, (MediaHandler h, RegisterMediaRequest body, CancellationToken ct) => h.RegisterAsync(body, ct))
             .WithName("RegisterMedia");
         g.MapGet("{id:guid}", (MediaHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetMedia");

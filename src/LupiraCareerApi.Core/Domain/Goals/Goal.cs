@@ -8,18 +8,25 @@ namespace LupiraCareerApi.Core.Domain.Goals;
 public class Goal
 {
     public Guid Id { get; set; }
+
     public int Version { get; set; }
 
     public Guid OwnerPrincipalId { get; set; }
 
     public Guid? SkillId { get; set; }
+
     public Maturity TargetMaturity { get; set; }
+
     public DateOnly? Deadline { get; set; }
-    public string Motivation { get; set; } = "";
+
+    public string Motivation { get; set; } = string.Empty;
+
     public GoalStatus Status { get; set; } = GoalStatus.Active;
 
     public DateTimeOffset? ResolvedAt { get; set; }
+
     public string? ResolutionReason { get; set; }
+
     public Guid? EvidenceArtifactId { get; set; }
 
     public List<GoalProgressEntry> Progress { get; set; } = new();

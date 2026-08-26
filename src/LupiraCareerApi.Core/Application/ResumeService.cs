@@ -26,7 +26,7 @@ public sealed class ResumeService(IDocumentSession session)
             {
                 Kind = r.Kind,
                 Id = r.Id,
-                Title = r.Kind == ExperienceKind.Engagement ? names.GetValueOrDefault(r.OrganizationId ?? Guid.Empty, "") : r.Title,
+                Title = r.Kind == ExperienceKind.Engagement ? names.GetValueOrDefault(r.OrganizationId ?? Guid.Empty, string.Empty) : r.Title,
                 OccurredOn = r.OccurredOn,
                 EndDate = r.EndDate,
                 OrganizationId = r.OrganizationId,
@@ -46,7 +46,7 @@ public sealed class ResumeService(IDocumentSession session)
         var skills = await session.Query<Skill>().Where(s => s.OwnerPrincipalId == ownerId).ToListAsync(ct);
 
         var names = await OrgNamesAsync(engagements.Select(e => e.OrganizationId), ct);
-        var profileDto = profile?.ToDto() ?? new ProfileDto { OwnerPrincipalId = ownerId, FullName = "" };
+        var profileDto = profile?.ToDto() ?? new ProfileDto { OwnerPrincipalId = ownerId, FullName = string.Empty };
 
         var dto = new ResumeDto
         {

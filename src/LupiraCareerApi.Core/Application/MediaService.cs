@@ -34,7 +34,7 @@ public sealed class MediaService(IDocumentSession session)
         if (string.IsNullOrWhiteSpace(r.BlobRef)) return OpResult<MediaDto>.Invalid("BlobRef is required.");
         if (string.IsNullOrWhiteSpace(r.MimeType)) return OpResult<MediaDto>.Invalid("MimeType is required.");
         var id = Guid.NewGuid();
-        session.Events.StartStream<MediaAsset>(id, new MediaRegistered(id, ownerId, r.BlobRef.Trim(), r.MimeType.Trim(), r.Width, r.Height, r.AltText ?? "", r.Caption, DateTimeOffset.UtcNow));
+        session.Events.StartStream<MediaAsset>(id, new MediaRegistered(id, ownerId, r.BlobRef.Trim(), r.MimeType.Trim(), r.Width, r.Height, r.AltText ?? string.Empty, r.Caption, DateTimeOffset.UtcNow));
         await session.SaveChangesAsync(ct);
         return await GetAsync(ownerId, id, ct);
     }

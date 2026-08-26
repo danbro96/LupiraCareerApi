@@ -8,14 +8,24 @@ namespace LupiraCareerApi.Core.Domain.Experiences;
 public sealed class ExperienceRow
 {
     public Guid Id { get; set; }
+
     public Guid OwnerPrincipalId { get; set; }
+
     public ExperienceKind Kind { get; set; }
-    public string Title { get; set; } = "";
+
+    public string Title { get; set; } = string.Empty;
+
     public DateOnly OccurredOn { get; set; }
+
     public DateOnly? EndDate { get; set; }
+
     public Guid? EngagementId { get; set; }
+
     public Guid? ProjectId { get; set; }
+
     public Guid? OrganizationId { get; set; }
+
     public List<Guid> SkillIds { get; set; } = new();
+
     public Location? Location { get; set; }
 }

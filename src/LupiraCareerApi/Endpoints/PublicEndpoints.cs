@@ -11,7 +11,7 @@ public static class PublicEndpoints
     {
         var g = app.MapGroup("/public/{handle}").RequireAuthorization("PublicReadPolicy").WithTags("Public");
 
-        g.MapGet("", (PublicPortfolioHandler h, string handle, CancellationToken ct) => h.GetPortfolioAsync(handle, ct))
+        g.MapGet(string.Empty, (PublicPortfolioHandler h, string handle, CancellationToken ct) => h.GetPortfolioAsync(handle, ct))
             .WithSummary("A published portfolio (profile + engagements + projects + skills + experience + media + artifacts), filtered to public items.")
             .WithName("GetPublicPortfolio");
 

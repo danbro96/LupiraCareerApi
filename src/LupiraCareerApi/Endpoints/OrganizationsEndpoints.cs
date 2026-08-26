@@ -9,9 +9,9 @@ public static class OrganizationsEndpoints
     {
         var g = app.MapGroup("/organizations").RequireAuthorization("ApiPolicy").WithTags("Organizations");
 
-        g.MapGet("", (OrganizationsHandler h, CancellationToken ct) => h.ListAsync(ct))
+        g.MapGet(string.Empty, (OrganizationsHandler h, CancellationToken ct) => h.ListAsync(ct))
             .WithName("ListOrganizations");
-        g.MapPost("", (OrganizationsHandler h, CreateOrganizationRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
+        g.MapPost(string.Empty, (OrganizationsHandler h, CreateOrganizationRequest body, CancellationToken ct) => h.CreateAsync(body, ct))
             .WithName("CreateOrganization");
         g.MapGet("{id:guid}", (OrganizationsHandler h, Guid id, CancellationToken ct) => h.GetAsync(id, ct))
             .WithName("GetOrganization");
