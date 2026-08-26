@@ -1,4 +1,4 @@
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Domain;
 using Marten;
 using Xunit;
 
@@ -29,7 +29,7 @@ public class ProvenanceTests(CareerApiTestFactory f) : IntegrationTest(f)
     public async Task Resolving_a_principal_does_not_restamp_the_session()
     {
         await using var session = Store.LightweightSession();
-        var directory = new LupiraCareerApi.Application.PrincipalDirectory(session);
+        var directory = new LupiraCareerApi.Core.Application.PrincipalDirectory(session);
 
         var caller = await directory.ResolveOrProvisionAsync("sub-caller", "caller@x.test", "Caller");
         EventActor.Stamp(session, caller, EventActor.SourceApi);

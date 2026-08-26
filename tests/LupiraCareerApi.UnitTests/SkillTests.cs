@@ -1,4 +1,4 @@
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Domain;
 using Xunit;
 
 namespace LupiraCareerApi.UnitTests;

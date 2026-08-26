@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
-using LupiraCareerApi.Mappers;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
+using LupiraCareerApi.Core.Mappers;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>The caller's employers / institutions of record. Owned per-principal; an organization can't be deleted
 /// while an engagement still references it.</summary>

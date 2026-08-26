@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>
 /// The transport-neutral outcome of a service operation. Each surface's adapter maps it to its own wire

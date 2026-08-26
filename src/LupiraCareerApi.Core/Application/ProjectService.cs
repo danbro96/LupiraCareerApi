@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
-using LupiraCareerApi.Mappers;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
+using LupiraCareerApi.Core.Mappers;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>Creates and curates the caller's projects, optionally filed under an engagement. Owner-scoped.</summary>
 public sealed class ProjectService(IDocumentSession session)

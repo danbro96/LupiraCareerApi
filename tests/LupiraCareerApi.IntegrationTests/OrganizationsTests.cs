@@ -1,5 +1,5 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using System.Net;
 using Xunit;

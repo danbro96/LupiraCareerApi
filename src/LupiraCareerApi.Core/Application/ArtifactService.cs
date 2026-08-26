@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
-using LupiraCareerApi.Mappers;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
+using LupiraCareerApi.Core.Mappers;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>The caller's artifacts (repos, talks, certifications, …) and their links to projects/skills/engagements.
 /// Reverse-link views (artifacts for a project/skill/engagement) are served by query-time <c>Contains()</c>.

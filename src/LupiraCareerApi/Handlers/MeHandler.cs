@@ -1,5 +1,5 @@
 using LupiraCareerApi.Auth;
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Dtos;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LupiraCareerApi.Handlers;

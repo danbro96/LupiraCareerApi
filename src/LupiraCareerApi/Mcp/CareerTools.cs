@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using LupiraCareerApi.Application;
+using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Auth;
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Dtos;
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
 

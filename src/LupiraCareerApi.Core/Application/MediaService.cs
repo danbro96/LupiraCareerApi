@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
-using LupiraCareerApi.Mappers;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
+using LupiraCareerApi.Core.Mappers;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>The caller's media assets (blobs on the shared MinIO; <see cref="MediaAsset.BlobRef"/> is the object
 /// key) and their links to projects/skills. Owner-scoped.</summary>

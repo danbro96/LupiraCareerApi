@@ -1,6 +1,6 @@
 using Marten.Events.Projections;
 
-namespace LupiraCareerApi.Domain;
+namespace LupiraCareerApi.Core.Domain;
 
 public enum ExperienceKind
 {

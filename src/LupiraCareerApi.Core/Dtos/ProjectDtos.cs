@@ -1,6 +1,6 @@
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Domain;
 
-namespace LupiraCareerApi.Dtos;
+namespace LupiraCareerApi.Core.Dtos;
 
 public sealed class ProjectDto
 {

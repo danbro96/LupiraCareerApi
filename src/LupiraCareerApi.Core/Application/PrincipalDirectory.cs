@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Domain.Identity;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Identity;
 using Marten;
 using Npgsql;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>
 /// Resolves an authenticated principal (OIDC <c>sub</c> + email) to a local <see cref="Principal"/>,

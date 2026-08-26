@@ -1,9 +1,9 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
-using LupiraCareerApi.Mappers;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
+using LupiraCareerApi.Core.Mappers;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>Creates and curates the caller's engagements (employment/study/…). Every stream is owned by one
 /// principal; reads and writes are scoped to the owner, and a non-owned id is reported as not found. A partial

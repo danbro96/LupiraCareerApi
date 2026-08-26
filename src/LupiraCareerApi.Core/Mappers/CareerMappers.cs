@@ -1,7 +1,7 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
 
-namespace LupiraCareerApi.Mappers;
+namespace LupiraCareerApi.Core.Mappers;
 
 /// <summary>Maps event-sourced aggregates + documents to their wire DTOs. Pure, allocation-light projections —
 /// the only place the read shape is assembled, so REST and MCP return identical structures.</summary>

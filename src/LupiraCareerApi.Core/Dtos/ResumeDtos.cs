@@ -1,6 +1,6 @@
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Domain;
 
-namespace LupiraCareerApi.Dtos;
+namespace LupiraCareerApi.Core.Dtos;
 
 /// <summary>One row of the unified experience timeline (engagements + projects).</summary>
 public sealed class ExperienceItemDto

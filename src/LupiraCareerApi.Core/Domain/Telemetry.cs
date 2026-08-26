@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace LupiraCareerApi.Domain;
+namespace LupiraCareerApi.Core.Domain;
 
 /// <summary>Domain-specific tracing source, registered with OpenTelemetry in Program.cs.</summary>
 public static class Telemetry

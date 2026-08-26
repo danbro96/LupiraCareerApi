@@ -1,4 +1,4 @@
-using LupiraCareerApi.Application;
+using LupiraCareerApi.Core.Application;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LupiraCareerApi.Http;

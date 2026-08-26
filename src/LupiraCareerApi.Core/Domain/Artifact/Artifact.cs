@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Domain;
+namespace LupiraCareerApi.Core.Domain;
 
 public enum ArtifactKind
 {

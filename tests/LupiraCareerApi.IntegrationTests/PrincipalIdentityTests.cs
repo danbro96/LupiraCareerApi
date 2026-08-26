@@ -1,6 +1,6 @@
-using LupiraCareerApi.Application;
-using LupiraCareerApi.Domain.Identity;
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Application;
+using LupiraCareerApi.Core.Domain.Identity;
+using LupiraCareerApi.Core.Domain;
 using Marten;
 using Xunit;
 

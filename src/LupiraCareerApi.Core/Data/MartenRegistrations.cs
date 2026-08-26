@@ -1,10 +1,10 @@
 using JasperFx.Events.Projections;
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Domain.Identity;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Identity;
 using Marten;
 using Weasel.Core;
 
-namespace LupiraCareerApi.Data;
+namespace LupiraCareerApi.Core.Data;
 
 /// <summary>Configures the single Marten store for the Career API: event-sourced aggregates (inline snapshots),
 /// derived read models, and plain documents (identity, profile, organizations), all in the <c>career</c> schema.

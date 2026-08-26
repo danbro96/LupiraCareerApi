@@ -1,6 +1,6 @@
 using Marten.Events.Aggregation;
 
-namespace LupiraCareerApi.Domain;
+namespace LupiraCareerApi.Core.Domain;
 
 public sealed class SkillMaturityPoint
 {

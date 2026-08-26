@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Dtos;
+namespace LupiraCareerApi.Core.Dtos;
 
 public sealed class MeDto
 {

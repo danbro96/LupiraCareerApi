@@ -1,4 +1,4 @@
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Handlers;
 
 namespace LupiraCareerApi.Endpoints;

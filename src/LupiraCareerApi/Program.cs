@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using LupiraCareerApi.Auth;
-using LupiraCareerApi.Domain;
+using LupiraCareerApi.Core.Domain;
 using LupiraCareerApi.Endpoints;
 using LupiraCareerApi.Handlers;
 using LupiraCareerApi.Health;

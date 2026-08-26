@@ -1,8 +1,8 @@
-using LupiraCareerApi.Domain;
-using LupiraCareerApi.Dtos;
+using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Dtos;
 using Marten;
 
-namespace LupiraCareerApi.Application;
+namespace LupiraCareerApi.Core.Application;
 
 /// <summary>
 /// The public, read-only portfolio surface. Resolves a published <see cref="Profile.PublicHandle"/> to its owner,

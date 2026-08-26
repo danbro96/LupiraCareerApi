@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Dtos;
+namespace LupiraCareerApi.Core.Dtos;
 
 /// <summary>The composed public portfolio for one published handle: the profile header plus the published subset of
 /// each collection (archived projects/media/artifacts and retired skills filtered out; goals never included). Built
