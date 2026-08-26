@@ -1,4 +1,6 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Experiences;
+using LupiraCareerApi.Core.Domain.Profiles;
+using LupiraCareerApi.Core.Domain.Projects;
 using LupiraCareerApi.Core.Dtos;
 using Marten;
 

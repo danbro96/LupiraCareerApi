@@ -1,4 +1,4 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Organizations;
 
 namespace LupiraCareerApi.Core.Dtos;
 

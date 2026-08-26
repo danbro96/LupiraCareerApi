@@ -1,4 +1,5 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Shared;
 using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using System.Net;

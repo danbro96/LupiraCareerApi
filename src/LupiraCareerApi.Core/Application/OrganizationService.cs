@@ -1,4 +1,5 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;
 using Marten;

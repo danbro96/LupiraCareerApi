@@ -1,4 +1,4 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Organizations;
 using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using System.Net;

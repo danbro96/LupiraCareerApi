@@ -1,3 +1,5 @@
+using LupiraCareerApi.Core.Domain.Shared;
+
 namespace LupiraCareerApi.Core.Dtos;
 
 public sealed class MeDto

@@ -1,4 +1,6 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Shared;
+
+namespace LupiraCareerApi.Core.Domain.Skills;
 
 public sealed record SkillRegistered(
     Guid SkillId,

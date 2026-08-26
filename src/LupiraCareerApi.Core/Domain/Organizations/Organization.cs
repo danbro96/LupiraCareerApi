@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Organizations;
 
 public enum OrganizationKind
 {

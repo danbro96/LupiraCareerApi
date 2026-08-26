@@ -1,4 +1,7 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Skills;
+
+namespace LupiraCareerApi.Core.Domain.Media;
 
 public enum MediaRole
 {

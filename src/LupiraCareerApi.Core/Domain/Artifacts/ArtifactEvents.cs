@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Artifacts;
 
 public sealed record ArtifactRegistered(
     Guid ArtifactId,

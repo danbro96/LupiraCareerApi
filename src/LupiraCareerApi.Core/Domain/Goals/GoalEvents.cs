@@ -1,4 +1,6 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Skills;
+
+namespace LupiraCareerApi.Core.Domain.Goals;
 
 public sealed record GoalSet(
     Guid GoalId,

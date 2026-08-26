@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Projects;
 
 public sealed record ProjectStarted(
     Guid ProjectId,

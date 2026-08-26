@@ -1,4 +1,7 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Organizations;
+using LupiraCareerApi.Core.Domain.Shared;
+
+namespace LupiraCareerApi.Core.Domain.Engagements;
 
 public enum EngagementKind
 {

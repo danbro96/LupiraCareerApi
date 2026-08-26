@@ -1,4 +1,6 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Shared;
+
+namespace LupiraCareerApi.Core.Domain.Profiles;
 
 /// <summary>
 /// Per-principal "about me" — the career API's replacement for LupiraWeb's global <c>MyInfo</c> singleton.

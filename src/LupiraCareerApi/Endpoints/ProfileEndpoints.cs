@@ -1,5 +1,6 @@
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Handlers;
+using LupiraCareerApi.Core.Domain.Profiles;
 
 namespace LupiraCareerApi.Endpoints;
 

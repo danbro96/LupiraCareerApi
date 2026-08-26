@@ -1,6 +1,7 @@
 using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using Xunit;
+using LupiraCareerApi.Core.Domain.Shared;
 
 namespace LupiraCareerApi.IntegrationTests;
 

@@ -1,4 +1,4 @@
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Media;
 
 public sealed record MediaRegistered(
     Guid MediaId,

@@ -4,6 +4,7 @@ using LupiraCareerApi.Auth;
 using LupiraCareerApi.Core.Dtos;
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
+using LupiraCareerApi.Core.Domain.Skills;
 
 namespace LupiraCareerApi.Mcp;
 

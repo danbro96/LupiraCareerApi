@@ -2,7 +2,7 @@ using System.Diagnostics;
 using LupiraCareerApi.Core.Domain.Identity;
 using Marten;
 
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Shared;
 
 /// <summary>
 /// Stamps event provenance onto the write session before its commit, so every event and document written in

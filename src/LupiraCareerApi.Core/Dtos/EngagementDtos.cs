@@ -1,4 +1,5 @@
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Shared;
 
 namespace LupiraCareerApi.Core.Dtos;
 

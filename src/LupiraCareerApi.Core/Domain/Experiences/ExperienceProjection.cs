@@ -1,6 +1,9 @@
 using Marten.Events.Projections;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Shared;
 
-namespace LupiraCareerApi.Core.Domain;
+namespace LupiraCareerApi.Core.Domain.Experiences;
 
 public enum ExperienceKind
 {

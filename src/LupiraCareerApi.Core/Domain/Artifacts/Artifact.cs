@@ -1,4 +1,8 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Skills;
+
+namespace LupiraCareerApi.Core.Domain.Artifacts;
 
 public enum ArtifactKind
 {

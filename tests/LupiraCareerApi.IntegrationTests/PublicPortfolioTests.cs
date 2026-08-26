@@ -2,6 +2,7 @@ using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using System.Net;
 using Xunit;
+using LupiraCareerApi.Core.Domain.Profiles;
 
 namespace LupiraCareerApi.IntegrationTests;
 

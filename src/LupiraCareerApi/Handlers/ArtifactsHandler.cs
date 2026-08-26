@@ -1,6 +1,6 @@
 using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Auth;
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Artifacts;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Http;
 using Microsoft.AspNetCore.Http.HttpResults;

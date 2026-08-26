@@ -1,4 +1,6 @@
-namespace LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Engagements;
+
+namespace LupiraCareerApi.Core.Domain.Projects;
 
 public enum ProjectKind
 {

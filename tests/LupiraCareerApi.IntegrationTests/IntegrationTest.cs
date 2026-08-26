@@ -1,5 +1,10 @@
 using Marten;
-using LupiraCareerApi.Core.Domain;
+using LupiraCareerApi.Core.Domain.Artifacts;
+using LupiraCareerApi.Core.Domain.Engagements;
+using LupiraCareerApi.Core.Domain.Organizations;
+using LupiraCareerApi.Core.Domain.Projects;
+using LupiraCareerApi.Core.Domain.Shared;
+using LupiraCareerApi.Core.Domain.Skills;
 using LupiraCareerApi.Core.Dtos;
 using System.Net.Http.Json;
 using Xunit;
