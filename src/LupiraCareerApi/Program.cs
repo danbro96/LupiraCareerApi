@@ -9,7 +9,6 @@ using Marten;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi;
 using OpenTelemetry.Logs;
@@ -120,8 +119,7 @@ builder.Logging.AddOpenTelemetry(o =>
     if (!string.IsNullOrWhiteSpace(otlpEndpoint)) o.AddOtlpExporter();
 });
 
-builder.Services.AddHealthChecks()
-    .AddCheck<DatabaseReadyCheck>("postgres", tags: ["ready"]);
+builder.Services.AddAppHealthChecks();
 
 // Enums serialize as their names on the wire (not ints), consistent with the Marten store.
 builder.Services.ConfigureHttpJsonOptions(o =>
@@ -210,11 +208,7 @@ app.MapGet("/", () => TypedResults.Redirect("/scalar"))
    .ExcludeFromDescription()
    .AllowAnonymous();
 
-// Health probes: /livez = liveness (no dependency checks); /readyz = readiness (Postgres reachable).
-app.MapHealthChecks("/livez", new HealthCheckOptions { Predicate = _ => false })
-    .DisableHttpMetrics();
-app.MapHealthChecks("/readyz", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready") })
-    .DisableHttpMetrics();
+app.MapAppHealthChecks();
 
 // Owner write/read surface (at root), one MapXxx per resource.
 app.MapMe();
