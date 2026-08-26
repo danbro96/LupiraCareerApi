@@ -44,7 +44,7 @@ The full contract is served by the running app:
 
 An MCP server exposing the career graph as agent tools, each scoped to the authenticated caller:
 `list_engagements`, `create_engagement`, `list_projects`, `create_project`, `list_skills`,
-`register_skill`, `record_skill_application`, `list_organizations`, `create_organization`, and
+`create_skill`, `record_skill_application`, `list_organizations`, `create_organization`, and
 `get_resume`. Because the agent acts as a real principal, it is recommended to keep this surface on a
 trusted network rather than the public internet.
 
