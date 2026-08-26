@@ -1,3 +1,4 @@
+using LupiraCareerApi.Core.Application.Results;
 using LupiraCareerApi.Core.Domain.Goals;
 using LupiraCareerApi.Core.Domain.Goals.Events;
 using LupiraCareerApi.Core.Domain.Skills;

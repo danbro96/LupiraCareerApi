@@ -1,3 +1,4 @@
+using LupiraCareerApi.Core.Application.Results;
 using LupiraCareerApi.Core.Domain.Engagements;
 using LupiraCareerApi.Core.Domain.Experiences;
 using LupiraCareerApi.Core.Domain.Organizations;

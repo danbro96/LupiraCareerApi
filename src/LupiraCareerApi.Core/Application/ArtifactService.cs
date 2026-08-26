@@ -1,3 +1,4 @@
+using LupiraCareerApi.Core.Application.Results;
 using LupiraCareerApi.Core.Domain.Artifacts;
 using LupiraCareerApi.Core.Domain.Artifacts.Events;
 using LupiraCareerApi.Core.Dtos;

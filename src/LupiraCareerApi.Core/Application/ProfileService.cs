@@ -1,3 +1,4 @@
+using LupiraCareerApi.Core.Application.Results;
 using LupiraCareerApi.Core.Domain.Profiles;
 using LupiraCareerApi.Core.Dtos;
 using LupiraCareerApi.Core.Mappers;
