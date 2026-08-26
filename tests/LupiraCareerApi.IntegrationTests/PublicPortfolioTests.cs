@@ -1,8 +1,8 @@
-using LupiraCareerApi.Core.Dtos;
-using System.Net.Http.Json;
 using System.Net;
-using Xunit;
+using System.Net.Http.Json;
 using LupiraCareerApi.Core.Domain.Profiles;
+using LupiraCareerApi.Core.Dtos;
+using Xunit;
 
 namespace LupiraCareerApi.IntegrationTests;
 

@@ -1,8 +1,8 @@
+using System.Net;
+using System.Net.Http.Json;
 using LupiraCareerApi.Core.Domain.Media;
 using LupiraCareerApi.Core.Domain.Projects;
 using LupiraCareerApi.Core.Dtos;
-using System.Net.Http.Json;
-using System.Net;
 using Xunit;
 
 namespace LupiraCareerApi.IntegrationTests;
