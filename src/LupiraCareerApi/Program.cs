@@ -229,7 +229,9 @@ static OpenApiSchema ProblemDetailsSchema() => new()
 };
 
 // MCP server for the agent, mounted at /mcp (LAN/WireGuard-only — not published through the tunnel).
-builder.Services.AddMcpServer().WithHttpTransport().WithTools<CareerTools>();
+builder.Services.AddMcpServer().WithHttpTransport()
+    .WithRequestFilters(f => f.AddCallToolFilter(StrictToolArguments.Filter))
+    .WithTools<CareerTools>();
 
 var app = builder.Build();
 
