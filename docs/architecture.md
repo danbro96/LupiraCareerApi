@@ -180,7 +180,7 @@ A single Marten store, configured in [`MartenRegistrations.cs`](../src/LupiraCar
   renamed/moved freely. Evolve a payload with a new versioned type + upcaster; never re-map a live alias.
 - **Provenance is stamped on every event** — correlation (OTel `TraceId`), causation (`SpanId`),
   `actor.email` + `source` headers, and `LastModifiedBy` = the acting principal id — set once per request
-  in [`PrincipalDirectory.StampSession`](../src/LupiraCareerApi.Core/Application/PrincipalDirectory.cs),
+  by `CurrentUser` (`Lupira.Identity.Marten.AspNetCore`, `StampProvenance`),
   the one point every authenticated request funnels through (provenance is unbackfillable).
 - Aggregates use `Snapshot<T>(SnapshotLifecycle.Inline)`; derived models are `Inline` projections.
 - Documents (`Principal`, `Profile`, `Organization`) get the indexes the services query by

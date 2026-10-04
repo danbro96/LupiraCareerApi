@@ -1,4 +1,5 @@
 using JasperFx;
+using Lupira.Identity.Marten;
 using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Core.Data;
 using Marten;
@@ -31,7 +32,7 @@ public static class CoreServiceCollectionExtensions
             return opts;
         }).UseLightweightSessions();
 
-        services.AddScoped<PrincipalDirectory>();
+        services.AddLupiraPrincipalDirectory();
         services.AddScoped<ProfileService>();
         services.AddScoped<OrganizationService>();
         services.AddScoped<EngagementService>();

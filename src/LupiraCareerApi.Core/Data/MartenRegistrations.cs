@@ -1,4 +1,5 @@
 using JasperFx.Events.Projections;
+using Lupira.Identity.Marten;
 using LupiraCareerApi.Core.Domain.Artifacts;
 using LupiraCareerApi.Core.Domain.Artifacts.Events;
 using LupiraCareerApi.Core.Domain.Engagements;
@@ -6,7 +7,6 @@ using LupiraCareerApi.Core.Domain.Engagements.Events;
 using LupiraCareerApi.Core.Domain.Experiences;
 using LupiraCareerApi.Core.Domain.Goals;
 using LupiraCareerApi.Core.Domain.Goals.Events;
-using LupiraCareerApi.Core.Domain.Identity;
 using LupiraCareerApi.Core.Domain.Media;
 using LupiraCareerApi.Core.Domain.Media.Events;
 using LupiraCareerApi.Core.Domain.Organizations;
@@ -60,7 +60,7 @@ public static class MartenRegistrations
         // Plain documents (identity, profile, organizations) + the indexes the services query by.
         // Unique sub: without it, concurrent first-sight logins fork one login into two principals.
         // Email stays non-unique — mutable, and a placeholder row shares it until the sub upgrade lands.
-        opts.Schema.For<Principal>().Index(x => x.AuthentikSub, i => i.IsUnique = true).Index(x => x.Email);
+        opts.AddLupiraPrincipals();
         opts.Schema.For<Profile>().Index(x => x.OwnerPrincipalId, i => i.IsUnique = true).Index(x => x.PublicHandle, idx => idx.IsUnique = true);
         opts.Schema.For<Organization>().Index(x => x.OwnerPrincipalId);
 

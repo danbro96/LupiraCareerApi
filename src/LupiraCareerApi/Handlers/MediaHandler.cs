@@ -1,5 +1,5 @@
 using Lupira.Hosting.Problems;
-using LupiraCareerApi.Auth;
+using Lupira.Identity.Marten.AspNetCore;
 using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Core.Domain.Media;
 using LupiraCareerApi.Core.Dtos;

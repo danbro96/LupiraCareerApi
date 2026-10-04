@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using Lupira.Testing.Postgres;
 using LupiraCareerApi.Core.Domain.Media;
 using LupiraCareerApi.Core.Domain.Projects;
 using LupiraCareerApi.Core.Dtos;

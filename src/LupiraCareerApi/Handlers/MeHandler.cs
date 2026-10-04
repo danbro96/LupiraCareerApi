@@ -1,4 +1,4 @@
-using LupiraCareerApi.Auth;
+using Lupira.Identity.Marten.AspNetCore;
 using LupiraCareerApi.Core.Dtos;
 using Microsoft.AspNetCore.Http.HttpResults;
 

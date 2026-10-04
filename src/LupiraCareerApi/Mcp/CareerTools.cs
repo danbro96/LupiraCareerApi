@@ -1,6 +1,6 @@
 using System.ComponentModel;
+using Lupira.Identity.Marten.AspNetCore;
 using Lupira.Mcp;
-using LupiraCareerApi.Auth;
 using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Core.Dtos;
 using ModelContextProtocol;
