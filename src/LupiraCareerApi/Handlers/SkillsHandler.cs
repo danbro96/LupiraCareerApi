@@ -1,7 +1,7 @@
+using Lupira.Hosting.Problems;
 using LupiraCareerApi.Auth;
 using LupiraCareerApi.Core.Application;
 using LupiraCareerApi.Core.Dtos;
-using LupiraCareerApi.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace LupiraCareerApi.Handlers;

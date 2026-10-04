@@ -222,10 +222,9 @@ Application services never throw for expected conditions; they return an `OpResu
 carrying an `OpStatus` (`Ok`, `NotFound`, `Forbidden`, `Invalid`, `Conflict`). Each transport maps that
 one type its own way:
 
-- **REST** → [`OpResultMapping`](../src/LupiraCareerApi/Http/OpResultMapping.cs) translates it to
+- **REST** → `OpResultMap` (`Lupira.Hosting.Problems`) translates it to
   `TypedResults` and, on failure, RFC 7807 `application/problem+json`.
-- **MCP** → [`CareerTools.Require`](../src/LupiraCareerApi/Mcp/CareerTools.cs) unwraps the value or
-  raises a structured tool error.
+- **MCP** → `Require()` (`Lupira.Mcp`) unwraps the value or raises a structured tool error.
 
 So both surfaces sit on the *same* Core services with identical authorization and validation — the
 transport only decides how a result is rendered.

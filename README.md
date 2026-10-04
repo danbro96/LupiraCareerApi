@@ -88,15 +88,15 @@ Then browse the API at `http://localhost:8080/scalar/v1`.
 
 ## Configuration
 
-All configuration is via environment variables (or any standard .NET configuration source). Telemetry
-is fully **off** unless an OTLP endpoint is set.
+All configuration is via environment variables (or any standard .NET configuration source). Outside
+Development an OTLP endpoint is required; in Development telemetry is off unless one is set.
 
 | Variable | Required | Purpose |
 |---|---|---|
 | `ConnectionStrings__Postgres` | yes | PostgreSQL connection string (Marten event store + documents). |
 | `Auth__Oidc__Authority` | yes (prod) | OIDC issuer/authority URL used to validate JWTs. |
 | `Auth__Oidc__Audience` | yes (prod) | Expected JWT audience. |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | no | OTLP endpoint for traces/metrics/logs. Unset ⇒ no telemetry exported. |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | yes (prod) | OTLP endpoint for traces/metrics/logs. Unset outside Development ⇒ startup fails. |
 | `OTEL_EXPORTER_OTLP_PROTOCOL` | no | e.g. `http/protobuf`. |
 | `OTEL_EXPORTER_OTLP_HEADERS` | no | Exporter headers (e.g. auth). |
 | `ASPNETCORE_ENVIRONMENT` | no | `Development` enables the `X-Dev-User` header auth. |

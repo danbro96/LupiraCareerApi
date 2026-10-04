@@ -1,7 +1,7 @@
 using System.ComponentModel;
+using Lupira.Mcp;
 using LupiraCareerApi.Auth;
 using LupiraCareerApi.Core.Application;
-using LupiraCareerApi.Core.Application.Results;
 using LupiraCareerApi.Core.Dtos;
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
@@ -23,7 +23,7 @@ public sealed class CareerTools
         "ongoing), its title history, and the ids of the skills exercised there. It does not return the projects " +
         "filed under an engagement — call list_projects with that engagement id for those.")]
     public static async Task<IReadOnlyList<EngagementDto>> ListEngagements(EngagementService engagements, CurrentUser user) =>
-        Require(await engagements.ListAsync((await user.GetAsync()).Id));
+        (await engagements.ListAsync((await user.GetAsync()).Id)).Require();
 
     [McpServerTool(Name = "create_engagement")]
     [Description("Record a new engagement — one span of Employment, Study, Hobby, Volunteer or OpenSource work — " +
@@ -32,7 +32,7 @@ public sealed class CareerTools
         "something still ongoing. Use this for the engagement itself, not for the work done inside it: individual " +
         "pieces of work are projects (create_project).")]
     public static async Task<EngagementDto> CreateEngagement(EngagementService engagements, CurrentUser user, CreateEngagementRequest request) =>
-        Require(await engagements.CreateAsync((await user.GetAsync()).Id, request));
+        (await engagements.CreateAsync((await user.GetAsync()).Id, request)).Require();
 
     [McpServerTool(Name = "list_projects")]
     [Description("List the caller's projects — discrete pieces of work, each Professional, Personal, OpenSource " +
@@ -43,7 +43,7 @@ public sealed class CareerTools
     public static async Task<IReadOnlyList<ProjectDto>> ListProjects(
         ProjectService projects, CurrentUser user,
         [Description("Restrict to projects under this engagement id.")] Guid? engagementId = null) =>
-        Require(await projects.ListAsync((await user.GetAsync()).Id, engagementId));
+        (await projects.ListAsync((await user.GetAsync()).Id, engagementId)).Require();
 
     [McpServerTool(Name = "create_project")]
     [Description("Record a discrete piece of work as a project — Professional, Personal, OpenSource or Academic. " +
@@ -51,7 +51,7 @@ public sealed class CareerTools
         "standalone work such as a side project. Status tracks its life (Active while in flight, then Shipped, " +
         "Shelved or Archived), and the outcome field is the place for what it actually achieved.")]
     public static async Task<ProjectDto> CreateProject(ProjectService projects, CurrentUser user, CreateProjectRequest request) =>
-        Require(await projects.CreateAsync((await user.GetAsync()).Id, request));
+        (await projects.CreateAsync((await user.GetAsync()).Id, request)).Require();
 
     [McpServerTool(Name = "list_skills")]
     [Description("List every skill on the caller's graph with the maturity it has reached — Aware, Working, " +
@@ -61,7 +61,7 @@ public sealed class CareerTools
         "live set. Maturity here is the current standing only — it does not return the history of how it got " +
         "there.")]
     public static async Task<IReadOnlyList<SkillDto>> ListSkills(SkillService skills, CurrentUser user) =>
-        Require(await skills.ListAsync((await user.GetAsync()).Id));
+        (await skills.ListAsync((await user.GetAsync()).Id)).Require();
 
     [McpServerTool(Name = "create_skill")]
     [Description("Add a skill to the caller's graph, categorised as a Language, Framework, Tool, Platform, " +
@@ -71,7 +71,7 @@ public sealed class CareerTools
         "alias, should not be created twice. This only registers the skill; use record_skill_application to log " +
         "actually using it, which is what moves its maturity.")]
     public static async Task<SkillDto> CreateSkill(SkillService skills, CurrentUser user, RegisterSkillRequest request) =>
-        Require(await skills.RegisterAsync((await user.GetAsync()).Id, request));
+        (await skills.RegisterAsync((await user.GetAsync()).Id, request)).Require();
 
     [McpServerTool(Name = "record_skill_application")]
     [Description("Log one occasion of the caller actually using a skill, on a date and at an intensity, in some " +
@@ -83,7 +83,7 @@ public sealed class CareerTools
         SkillService skills, CurrentUser user,
         [Description("The skill id.")] Guid skillId,
         ApplySkillRequest request) =>
-        Require(await skills.ApplyAsync((await user.GetAsync()).Id, skillId, request));
+        (await skills.ApplyAsync((await user.GetAsync()).Id, skillId, request)).Require();
 
     [McpServerTool(Name = "list_organizations")]
     [Description("List the organizations on the caller's graph — the Companies, Schools, Nonprofits and Others " +
@@ -91,7 +91,7 @@ public sealed class CareerTools
         "creating an engagement. Each entry carries its kind and optional URL. It does not return the engagements " +
         "at each organization — use list_engagements for those.")]
     public static async Task<IReadOnlyList<OrganizationDto>> ListOrganizations(OrganizationService orgs, CurrentUser user) =>
-        Require(await orgs.ListAsync((await user.GetAsync()).Id));
+        (await orgs.ListAsync((await user.GetAsync()).Id)).Require();
 
     [McpServerTool(Name = "create_organization")]
     [Description("Add an organization — a Company, School, Nonprofit or Other — so engagements can hang off it. " +
@@ -99,7 +99,7 @@ public sealed class CareerTools
         "check list_organizations first to avoid a duplicate. Creating one records only the organization, not any " +
         "engagement there: follow with create_engagement for the actual span of work or study.")]
     public static async Task<OrganizationDto> CreateOrganization(OrganizationService orgs, CurrentUser user, CreateOrganizationRequest request) =>
-        Require(await orgs.CreateAsync((await user.GetAsync()).Id, request));
+        (await orgs.CreateAsync((await user.GetAsync()).Id, request)).Require();
 
     [McpServerTool(Name = "get_resume")]
     [Description("Get the caller's résumé composed in one call: the profile header plus their engagements, " +
@@ -108,16 +108,5 @@ public sealed class CareerTools
         "of the career. Scope is everything the caller owns, so it is a superset view rather than a filtered one; " +
         "reach for the individual list tools when you want one slice or need to filter projects by engagement.")]
     public static async Task<ResumeDto> GetResume(ResumeService resume, CurrentUser user) =>
-        Require(await resume.GetResumeAsync((await user.GetAsync()).Id));
-
-    /// <summary>Unwraps a service outcome to its value, surfacing non-Ok statuses as an MCP tool error.</summary>
-    private static T Require<T>(OpResult<T> r) => r.Status switch
-    {
-        OpStatus.Ok => r.Value!,
-        OpStatus.NotFound => throw new McpException("Not found."),
-        OpStatus.Forbidden => throw new McpException(r.Error ?? "Forbidden."),
-        OpStatus.Invalid => throw new McpException(r.Error ?? "Invalid request."),
-        OpStatus.Conflict => throw new McpException(r.Error ?? "Conflict."),
-        _ => throw new McpException("Unexpected result."),
-    };
+        (await resume.GetResumeAsync((await user.GetAsync()).Id)).Require();
 }

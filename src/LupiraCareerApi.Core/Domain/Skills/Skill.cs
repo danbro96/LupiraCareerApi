@@ -48,7 +48,7 @@ public class Skill
 
     public void Apply(SkillReparented e) => ParentSkillId = e.NewParentSkillId;
 
-    public void Apply(SkillRetired e) => Retired = true;
+    public void Apply(SkillRetired _) => Retired = true;
 
     public void Apply(SkillLearned e)
     {

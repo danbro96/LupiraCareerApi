@@ -76,5 +76,5 @@ public class MediaAsset
         Height = e.NewHeight;
     }
 
-    public void Apply(MediaArchived e) => Archived = true;
+    public void Apply(MediaArchived _) => Archived = true;
 }

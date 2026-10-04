@@ -1,4 +1,4 @@
-using LupiraCareerApi.Core.Application.Results;
+using Lupira.Results;
 using LupiraCareerApi.Core.Domain.Engagements;
 using LupiraCareerApi.Core.Domain.Projects;
 using LupiraCareerApi.Core.Domain.Projects.Events;

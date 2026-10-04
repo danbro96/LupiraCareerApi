@@ -53,7 +53,7 @@ public class Project
 
     public void Apply(ProjectAttachedToEngagement e) => EngagementId = e.EngagementId;
 
-    public void Apply(ProjectDetachedFromEngagement e) => EngagementId = null;
+    public void Apply(ProjectDetachedFromEngagement _) => EngagementId = null;
 
     public void Apply(ProjectShipped e)
     {
@@ -68,7 +68,7 @@ public class Project
         Status = ProjectStatus.Shelved;
     }
 
-    public void Apply(ProjectArchived e) => Status = ProjectStatus.Archived;
+    public void Apply(ProjectArchived _) => Status = ProjectStatus.Archived;
 
     public void Apply(ProjectSkillAttached e)
     {

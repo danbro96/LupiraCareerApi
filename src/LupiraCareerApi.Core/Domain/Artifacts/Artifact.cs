@@ -82,5 +82,5 @@ public class Artifact
         }
     }
 
-    public void Apply(ArtifactArchived e) => Archived = true;
+    public void Apply(ArtifactArchived _) => Archived = true;
 }
